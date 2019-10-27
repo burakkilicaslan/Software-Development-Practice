@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from .models import community_header
 from django.template import loader
-from django.http import HttpResponse
 
 
 # Create your views here.
@@ -27,4 +26,4 @@ def index(request):
     #     'all_community': all_community,
     # }
     # return render(request, 'community.html', context)
-    return HttpResponse("<h1> burak kılıçaslan </h1>")
+    return render(request, 'index.html')
