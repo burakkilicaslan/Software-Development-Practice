@@ -15,5 +15,3 @@ class post_type_header(models.Model):
     desc = models.TextField()
     semantic_tag = models.CharField(max_length = 150)
 
-class Posts(models.Model):
-    
