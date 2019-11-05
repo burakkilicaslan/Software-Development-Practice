@@ -24,6 +24,6 @@ def index(request):
     # community_desc = community_header.desc
     # context = {
     #     'all_community': all_community,
-    # }
+    # }mm
     # return render(request, 'community.html', context)
     return render(request, 'index.html')
