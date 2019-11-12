@@ -26,6 +26,13 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
+            <form class = "form-inline col align-self-center lg" role = "search" method= "get" action = "#">
+                <div class = "form-group">
+                    <input type="text" class = "form-control" name = "q" value = "">
+                    <button type = "submit" class = "btn btn-dark">Search</button>
+                </div>
+            
+            </form>
             <ul class="navbar-nav ml-auto">
             <li class="nav-item active">
                 <a class="nav-link" href="#">Communities
@@ -42,13 +49,13 @@
                 <a class="nav-link" href="#">Contact</a>
             </li>
             </ul>
+
         </div>
         </div>
     </nav>
     {% block body %}
     {% endblock %}
 
-
-
+ 
 </body>
 </html>

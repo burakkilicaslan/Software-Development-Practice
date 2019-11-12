@@ -4,6 +4,6 @@ from . import views
 app_name = 'community'
 
 urlpatterns = [
-    path('',views.index, name = 'index'),
+    path('',views.Community_Listview.as_view(), name = 'index'),
     # path('<int:community_id>/', views.community, name = 'community')
 ]
