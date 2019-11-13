@@ -10,3 +10,16 @@ class Community_Listview(ListView):
 
     def get_queryset(self):
         return community_header.objects.all()
+
+class Community_DetailView(DetailView):
+    model = community_header #Hangi objenin ya da model'in detaylarını görmek istediğimizi belirtiyoruz.
+    template_name = "community_detail"
+    
+    def get_queryset(self):
+        return community_header.objects.all()
+
+class Community_Create(CreateView):
+    model = community_header
+    template_name = "community_form.html"
+    fields = ["user_name", "name", "desc","semantic_tag"]
+
