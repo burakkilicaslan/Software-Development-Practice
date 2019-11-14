@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Bsharing</title>
+    <title> {% block title %} Welcome Bsharing {% endblock %} </title>
 
     {% load staticfiles %} <!-- loads the path to static files -->
     <!-- Bootstrap core CSS -->
@@ -35,8 +35,8 @@
             </form>
             <ul class="navbar-nav ml-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="#">Communities
-                <span class="sr-only">(current)</span>
+                <a class="nav-link" href=" {% url 'community:community_create' %} ">
+                <span class="glyphicon glyphicon-plus" aria-hidden = "true"></span>&nbsp; Add Community
                 </a>
             </li>
             <li class="nav-item">
@@ -54,8 +54,15 @@
         </div>
     </nav>
     {% block body %}
-    {% endblock %}
 
+    {% endblock %}
+    
+    <footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white"> </p>
+    </div>
+    <!-- /.container -->
+    </footer>
  
 </body>
 </html>
