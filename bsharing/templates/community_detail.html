@@ -1,7 +1,10 @@
 {% extends 'base.html' %}
-<title> {% block title %} Community Details {% endblock %} </title>
-<a class="nav-link" href=" {% block url %} {% url 'community:post_type_create' %} {% endblock %} ">
-<span class="glyphicon glyphicon-plus" aria-hidden = "true"></span>&nbsp; {% block navname %} Add Post_Type {% endblock %}
+
+{% block a %}  <a class="nav-link" href=" {% url 'community:post_type_create' %}  "> {% endblock %}
+
+{% comment %} {% block href %} {% url 'community:post_type_create' %} {% endblock %} {% endcomment %}
+
+{% block navname %} <span class="glyphicon glyphicon-plus" aria-hidden = "true"></span>&nbsp; Add Post_Type {% endblock %}
 
 
 {% block body %}
