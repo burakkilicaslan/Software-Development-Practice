@@ -1,6 +1,6 @@
 from django.views.generic import (CreateView, DetailView, ListView, UpdateView, DeleteView)
 from django.shortcuts import render
-from .models import community_header
+from .models import community_header, post_type_header
 from django.template import loader
 
 
@@ -22,4 +22,10 @@ class Community_Create(CreateView):
     model = community_header
     template_name = "community_form.html"
     fields = ["user_name", "name", "desc","semantic_tag"]
+
+class Post_Type_Create(CreateView):
+    model = post_type_header
+    template_name = "post_type_form.html"
+    fields = ["post_community", "name", "desc", "semantic_tag", "fields"]
+
 

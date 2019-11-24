@@ -1,5 +1,8 @@
 {% extends 'base.html' %}
 <title> {% block title %} Community Details {% endblock %} </title>
+<a class="nav-link" href=" {% block url %} {% url 'community:post_type_create' %} {% endblock %} ">
+<span class="glyphicon glyphicon-plus" aria-hidden = "true"></span>&nbsp; {% block navname %} Add Post_Type {% endblock %}
+
 
 {% block body %}
   <!-- Page Content -->
