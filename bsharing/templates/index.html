@@ -1,4 +1,6 @@
 {% extends 'base.html' %}
+{% block a %}  <a class="nav-link" href=" {% url 'community:community_create' %}  "> {% endblock %}
+
 {% block body %}
   <!-- Page Content -->
   <div class="container">
@@ -18,7 +20,7 @@
             <div class="card-body">
               <h2 class="card-title"> {{ community.name }} </h2>
               <p class="card-text">{{ community.desc }} </p>
-              <a href=" {{ community.id }}  " class="btn btn-primary">Go! &rarr;</a>
+              <a href=" {% url 'community:community_detail' community.id %} " class="btn btn-primary">Go! &rarr;</a>
             </div>
             <div class="card-footer text-muted">
               Created by {{ community.user_name }}

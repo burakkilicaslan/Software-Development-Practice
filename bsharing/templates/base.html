@@ -34,9 +34,9 @@
             
             </form>
             <ul class="navbar-nav ml-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href=" {% url 'community:community_create' %} ">
-                <span class="glyphicon glyphicon-plus" aria-hidden = "true"></span>&nbsp; Add Community
+            <li class="nav-item active"> 
+               {% block a %}  <a class="nav-link" href=" #  "> {% endblock %}
+                <span class="glyphicon glyphicon-plus" aria-hidden = "true"></span>&nbsp; {% block navname %} Add Community {% endblock %}
                 </a>
             </li>
             <li class="nav-item">
