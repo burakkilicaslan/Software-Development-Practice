@@ -1,6 +1,8 @@
 from django.db import models
 from django.urls import reverse
 from django.contrib.postgres.fields import JSONField
+from django.utils import timezone
+import datetime
 
 
 # Create your models here.
@@ -10,6 +12,7 @@ class community_header(models.Model):
     name = models.CharField(max_length = 100)
     desc = models.TextField()
     semantic_tag = models.CharField(max_length = 150)
+    published_date = models.DateTimeField(auto_now_add=True, blank=True, null = True)
 
     def get_absolute_url(self):
         return reverse('community:community_detail', kwargs={"pk" : self.pk})
@@ -18,13 +21,12 @@ class community_header(models.Model):
         return self.name + "--" + self.desc
 
 
-
 class post_type_header(models.Model):
-    post_community = models.ForeignKey(community_header, default="NONE", on_delete=models.CASCADE)
+    post_community = models.ForeignKey(community_header, default="", on_delete=models.CASCADE)
     name = models.CharField(max_length = 100)
     desc = models.TextField()
     semantic_tag = models.CharField(max_length = 150)
-    fields = models.ManyToManyField('define_post_types')
+    #fields = models.ManyToManyField('define_post_types')
     #fields_type = JSONField(default = "")
 
     def get_absolute_url(self):

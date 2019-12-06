@@ -4,6 +4,7 @@ from .models import community_header, post_type_header
 from django.http import HttpResponse, JsonResponse, Http404
 from django.template import loader
 from .forms import post_type_create_form
+from django.views.decorators.csrf import csrf_exempt
 import json
 
 
@@ -27,10 +28,33 @@ class Community_Create(CreateView):
     template_name = "community_form.html"
     fields = ["user_name", "name", "desc","semantic_tag"]
 
-class Post_Type_Create(CreateView):
-    model = post_type_header
-    template_name = "post_type_form.html"
-    fields = ["post_community", "name", "desc", "semantic_tag", "fields"]
+# class Post_Type_Create(CreateView):
+#     model = post_type_header
+#     template_name = "post_type_form.html"
+#     fields = ["post_community", "name", "desc", "semantic_tag", "fields"]
+
+@csrf_exempt
+def post_type_create(request, community_header_id):
+
+    community = get_object_or_404(community_header, pk=community_header_id)
+    if request.method == 'POST':
+        form = post_type_create_form(request.POST)
+        if form.is_valid():
+            post_type = form.save(commit=False)
+            post_type.post_community = community
+            post_type.save()
+            return redirect('community_detail', pk=post.id)
+        return render(request, 'post_type_form.html', {'form': form})
+
+    else: 
+        form = post_type_create_form()
+
+    return render(request, 'post_type_form.html', {'form': form})
+
+
+        
+
+
 
 
 # def create_post_type(request, community_id):

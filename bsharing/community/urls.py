@@ -8,6 +8,6 @@ urlpatterns = [
     path('',views.Community_Listview.as_view(), name = 'index'),
     path('<pk>/', views.Community_DetailView.as_view(), name = "community_detail"),
     path('community/add/', views.Community_Create.as_view(), name ="community_create"),
-    path('post/add/', views.Post_Type_Create.as_view(), name ="post_type_create")
+    path('add/<int:community_header_id>/', views.post_type_create, name ="post_type_create")
     # path('<int:community_id>/', views.community, name = 'community')
 ]
