@@ -43,7 +43,7 @@ def post_type_create(request, community_header_id):
             post_type = form.save(commit=False)
             post_type.post_community = community
             post_type.save()
-            return redirect('community_detail', pk=post.id)
+            return HttpResponse("success")
         return render(request, 'post_type_form.html', {'form': form})
 
     else: 
@@ -52,24 +52,7 @@ def post_type_create(request, community_header_id):
     return render(request, 'post_type_form.html', {'form': form})
 
 
-        
 
-
-
-
-# def create_post_type(request, community_id):
-#     form = post_type_create_form(request.POST)
-#     #community = get_object_or_404(community_header, pk = community_id)
-#     community_id = request.POST.get("community.id")
-#     pt = post_type_header()
-#     pt.post_community = community_header.objects.get(community_id)
-#     pt.name = request.POST.get("", "")
-#     pt.desc = request.POST.get("", "")
-#     pt.semantic_tag = request.POST.get ("", "")
-#     pt.fields = request.POST.get('fieldJson')
-#     pt.save()
-
-#     return redirect('community:community_detail')
 
 
 
