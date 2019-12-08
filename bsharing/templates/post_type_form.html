@@ -21,23 +21,19 @@
                                         <table class="table" id="myTable">
                                             <thead>
                                                 <tr>
-                                                    <th scope="col">Field Pos. No</th>
                                                     <th scope="col">Field Label</th>
                                                     <th scope="col">Field Type</th>
                                                     <th scope="col">Is Required?</th>
-                                                    <th scope="col">Add New Item</th>
+                                                    {% comment %} <th scope="col">Add New Item</th> {% endcomment %}
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr>
                                                     <th scope="row">
-                                                        <input type="text" id="dt_fieldposnr" class="floatLabel_dt" name="dt_fieldposnr">
-                                                    </th>
-                                                    <th scope="row">
-                                                        <input type="text" id="dt_fieldlabel" class="floatLabel_dt" name="dt_fieldlabel">
+                                                        <input type="text" id="dt_fieldlabel" class="floatLabel_dt" name="fieldlabel">
                                                     </th>
                                                     <td>
-                                                        <select class="mdb-select md-form floatLabel_dt" name="dt_fieldtype">
+                                                        <select class="mdb-select md-form floatLabel_dt" name="fieldtype">
                                                             <option value="" disabled selected>Choose your option</option>
                                                             <option value="TE">Text field</option>
                                                             <option value="TA">Text area</option>
@@ -54,25 +50,22 @@
                                                     <td>
                                                         <input type="checkbox" checked="true" data-toggle="toggle"
                                                             data-style="ios"
-                                                            id="dt_fieldrequire" name="dt_fieldrequire"
+                                                            id="dt_fieldrequire" name="fieldrequire"
                                                             data-onstyle="success">
                                                     </td>
                                                     <td>
                                                         <button type="button" onclick = "myFunction()" class="btn btn-outline-success" id="addDataField">+</button>
-                                                    </td>
+                                                    </td> 
                                                 </tr>
                                             </tbody>
 
                                             <tbody>
                                                 <tr>
                                                     <th scope="row">
-                                                        <input type="text" id="dt_fieldposnr" class="floatLabel_dt" name="dt_fieldposnr">
-                                                    </th>
-                                                    <th scope="row">
-                                                        <input type="text" id="dt_fieldlabel" class="floatLabel_dt" name="dt_fieldlabel">
+                                                        <input type="text" id="dt_fieldlabel" class="floatLabel_dt" name="fieldlabel">
                                                     </th>
                                                     <td>
-                                                        <select class="mdb-select md-form floatLabel_dt" name="dt_fieldtype">
+                                                        <select class="mdb-select md-form floatLabel_dt" name="fieldtype">
                                                             <option value="" disabled selected>Choose your option</option>
                                                             <option value="TE">Text field</option>
                                                             <option value="TA">Text area</option>
@@ -89,12 +82,12 @@
                                                     <td>
                                                         <input type="checkbox" checked="true" data-toggle="toggle"
                                                             data-style="ios"
-                                                            id="dt_fieldrequire" name="dt_fieldrequire"
+                                                            id="dt_fieldrequire" name="fieldrequire"
                                                             data-onstyle="success">
                                                     </td>
-                                                    <td>
+                                                    <td> 
                                                         <button type="button" onclick = "myFunction()" class="btn btn-outline-success" id="addDataField">+</button>
-                                                    </td>
+                                                    </td> 
                                                 </tr>
                                             </tbody>
 
@@ -102,14 +95,12 @@
 
                                             <tbody>
                                                 <tr>
+
                                                     <th scope="row">
-                                                        <input type="text" id="dt_fieldposnr" class="floatLabel_dt" name="dt_fieldposnr">
-                                                    </th>
-                                                    <th scope="row">
-                                                        <input type="text" id="dt_fieldlabel" class="floatLabel_dt" name="dt_fieldlabel">
+                                                        <input type="text" id="dt_fieldlabel" class="floatLabel_dt" name="fieldlabel">
                                                     </th>
                                                     <td>
-                                                        <select class="mdb-select md-form floatLabel_dt" name="dt_fieldtype">
+                                                        <select class="mdb-select md-form floatLabel_dt" name="fieldtype">
                                                             <option value="" disabled selected>Choose your option</option>
                                                             <option value="TE">Text field</option>
                                                             <option value="TA">Text area</option>
@@ -126,12 +117,12 @@
                                                     <td>
                                                         <input type="checkbox" checked="true" data-toggle="toggle"
                                                             data-style="ios"
-                                                            id="dt_fieldrequire" name="dt_fieldrequire"
+                                                            id="dt_fieldrequire" name="fieldrequire"
                                                             data-onstyle="success">
                                                     </td>
                                                     <td>
                                                         <button type="button" onclick = "myFunction()" class="btn btn-outline-success" id="addDataField">+</button>
-                                                    </td>
+                                                    </td> 
                                                 </tr>
                                             </tbody>
 
