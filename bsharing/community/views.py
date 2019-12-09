@@ -42,13 +42,14 @@ def post_type_create(request, community_header_id):
         if form.is_valid():
             post_type = form.save(commit=False)
             post_type.post_community = community
-            post_type.fields = {}
-            for i in request.POST.get():
-                post_type.fields[i] ={
-                "fieldLabel": request.POST.get("fieldlabel", ""),
-                "fieldtype": request.POST.get("fieldtype", ""),
-                "fieldrequire": request.POST.get("fieldrequire", "")         
-                }
+            jsonfields = request.POST.get('fieldJson')
+            post_type.fields = jsonfields
+            # for i in request.POST.get("table1", ""):
+            #     post_type.fields[i] ={
+            #     "fieldLabel": request.POST.get("fieldlabel", ""),
+            #     "fieldtype": request.POST.get("fieldtype", ""),
+            #     "fieldrequire": request.POST.get("fieldrequire", "")         
+            #    }
             post_type.save()
 
             return HttpResponse("success")

@@ -15,8 +15,9 @@
                         <form class="form-horizontal" method="post"  role="form" >
                             {% csrf_token %}
                             <input type="hidden" name="community" value="{{ community }}">
+                            <input hidden value ="" type="hidden" name="fieldJson" id = "send">
                             {% include 'form_template.html' %}
-                               <div class="form-group">
+                               <!-- <div class="form-group">
                                     <div class="addfields">
                                         <table class="table" id="myTable">
                                             <thead>
@@ -24,14 +25,14 @@
                                                     <th scope="col">Field Label</th>
                                                     <th scope="col">Field Type</th>
                                                     <th scope="col">Is Required?</th>
-                                                    {% comment %} <th scope="col">Add New Item</th> {% endcomment %}
+                                                    <th scope="col">Add New Item</th> 
                                                 </tr>
                                             </thead>
-                                            <tbody>
+                                            <tbody name="table1">
                                                 <tr>
-                                                    <th scope="row">
+                                                    <td>
                                                         <input type="text" id="dt_fieldlabel" class="floatLabel_dt" name="fieldlabel">
-                                                    </th>
+                                                    </td>
                                                     <td>
                                                         <select class="mdb-select md-form floatLabel_dt" name="fieldtype">
                                                             <option value="" disabled selected>Choose your option</option>
@@ -59,11 +60,11 @@
                                                 </tr>
                                             </tbody>
 
-                                            <tbody>
+                                            <tbody name="table1">
                                                 <tr>
-                                                    <th scope="row">
+                                                    <td> 
                                                         <input type="text" id="dt_fieldlabel" class="floatLabel_dt" name="fieldlabel">
-                                                    </th>
+                                                     </td>
                                                     <td>
                                                         <select class="mdb-select md-form floatLabel_dt" name="fieldtype">
                                                             <option value="" disabled selected>Choose your option</option>
@@ -93,12 +94,12 @@
 
 
 
-                                            <tbody>
+                                            <tbody name="table1">
                                                 <tr>
 
-                                                    <th scope="row">
+                                                    <td>
                                                         <input type="text" id="dt_fieldlabel" class="floatLabel_dt" name="fieldlabel">
-                                                    </th>
+                                                    </td>
                                                     <td>
                                                         <select class="mdb-select md-form floatLabel_dt" name="fieldtype">
                                                             <option value="" disabled selected>Choose your option</option>
@@ -133,7 +134,55 @@
                                             <button type="submit" class="btn btn-success">   Submit  </button>
                                         </div>
                                     </div>
+                                </div> -->
+
+                            <!-- Editable table -->
+                            <div class="card">
+                              <h3 class="card-header text-center font-weight-bold text-uppercase py-4">Editable table</h3>
+                              <div class="card-body">
+                                <div id="table" class="table-editable">
+                                  <span class="table-add float-right mb-3 mr-2"><a href="#!" class="text-success">
+                                  <i class="fas fa-plus fa-2x" aria-hidden="true"></i></a></span>
+                                  <table id="table" name ="table" class="table table-bordered table-responsive-md table-striped text-center">
+                                    <thead>
+                                      <tr>
+                                        <th class="text-center">Field Label</th>
+                                        <th class="text-center">Field Type</th>
+                                        <th class="text-center">Is Required?</th>
+                                        <th class="text-center">Remove</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr>
+                                        <td class="pt-3-half" contenteditable="true">Aurelia Vega</td>
+                                        <td class="pt-3-half" contenteditable="true">30</td>
+                                        <td class="pt-3-half" contenteditable="true">Deepends</td>
+                                        <td>
+                                          <span class="table-remove"><button type="button"
+                                              class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
+                                        </td>
+                                      </tr>
+                                      <tr class="hide" id = "newrow">
+                                        <td class="pt-3-half" contenteditable="true">Elisa Gallagher</td>
+                                        <td class="pt-3-half" contenteditable="true">31</td>
+                                        <td class="pt-3-half" contenteditable="true">Portica</td>
+
+                                        <td>
+                                          <span class="table-remove"><button type="button"
+                                              class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
                                 </div>
+                              </div>
+                            </div>
+<!-- Editable table -->                  <div class="form-group">
+                                        <div class="col-sm-offset-2 col-sm-2">
+                                            <button id="btn" type="submit" class="btn btn-success">   Submit  </button>
+                                        </div>
+                                        </div>
+                                        
                         </form>
                     </div>
                 </div>
@@ -144,20 +193,10 @@
  
 </div>
 
-<script>
-function myFunction() {
-  var table = document.getElementById("myTable").childNodes; 
-  var row = table[9].insertRow(0);
-  
-  var cell1 = row.insertCell(0);
-  var cell2 = row.insertCell(1);
-  var cell3 = row.insertCell(2);
-  var cell4 = row.insertCell(3);
-  var cell5 = row.insertCell(4);
-  //cell1.innerHTML = "NEW CELL1";
-  //cell2.innerHTML = "NEW CELL2";
-}
-</script>
+
 
 
 {% endblock %}
+
+
+
