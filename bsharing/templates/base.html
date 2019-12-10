@@ -7,15 +7,22 @@
     <title> {% block title %} Welcome Bsharing {% endblock %} </title>
 
     {% load staticfiles %} <!-- loads the path to static files -->
+    <link href={% static 'community/style.css' %} rel="stylesheet">
     <!-- Bootstrap core CSS -->
     <link href={% static 'bootstrap/vendor/bootstrap/css/bootstrap.min.css' %} rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <!-- Bootstrap core CSS -->
+    <link href={% static "MDB/css/bootstrap.min.css"%} rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href={% static "MDB/css/mdb.min.css"%} rel="stylesheet">
+    <!-- Your custom styles (optional) -->
+    <link href={% static "MDB/css/style.css"%} rel="stylesheet">
 
      <!-- Custom styles for this template -->
      {% comment %} <link href="css/blog-home.css" rel="stylesheet"> {% endcomment %}
-    <link href={% static 'community/style.css' %} rel="stylesheet">
-        <!-- Bootstrap core JavaScript -->
-    <script src={% static 'bootstrap/vendor/jquery/jquery.min.js' %}></script>
-    <script src= {% static 'bootstrap/vendor/bootstrap/js/bootstrap.bundle.min.js' %}></script>
+    {% comment %} <script src={% static 'bootstrap/vendor/jquery/jquery.min.js' %}></script>
+    <script src= {% static 'bootstrap/vendor/bootstrap/js/bootstrap.bundle.min.js' %}></script> {% endcomment %}
+
 </head>
 <body>
       <!-- Navigation -->
@@ -35,8 +42,8 @@
             </form>
             <ul class="navbar-nav ml-auto">
             <li class="nav-item active"> 
-               {% block a %}  <a class="nav-link" href=" #  "> {% endblock %}
-                <span class="glyphicon glyphicon-plus" aria-hidden = "true"></span>&nbsp; {% block navname %} Add Community {% endblock %}
+                {% block a %}  <a class="nav-link" href=" #  "> {% endblock %}
+                {% block navname %}<span class="glyphicon glyphicon-plus" aria-hidden = "true"></span>&nbsp; Add Community {% endblock %}
                 </a>
             </li>
             <li class="nav-item">
@@ -57,12 +64,202 @@
 
     {% endblock %}
     
-    <footer class="py-5 bg-dark">
+    {% comment %} <footer class="py-5 bg-dark">
     <div class="container">
       <p class="m-0 text-center text-white"> </p>
     </div>
     <!-- /.container -->
-    </footer>
- 
+    </footer> {% endcomment %}
+
+    <!-- Bootstrap core JavaScript -->
+
+    <script type="text/javascript" src={% static "MDB/js/jquery.min.js"%}></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src={% static "MDB/js/popper.min.js"%}></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src={% static "MDB/js/bootstrap.min.js"%}></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src={% static "MDB/js/mdb.min.js"%}></script>
+
+
+{% comment %} <script>
+
+const tableID = $('table');
+const BTN = $('export-btn');
+const EXPORT = $('export'); {% endcomment %}
+
+{% comment %} const newTr = `
+<tr class="hide">
+  <td class="pt-3-half" contenteditable="true">Example</td>
+  <td class="pt-3-half" contenteditable="true">Example</td>
+  <td class="pt-3-half" contenteditable="true">Example</td>
+  <td>
+    <span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0 waves-effect waves-light">Remove</button></span>
+  </td>
+</tr>`; {% endcomment %}
+
+ {% comment %} $('table-add').on('click', 'i', () => {
+    
+    const $clone = tableID.find('tbody tr').last().clone().removeClass('hide');
+    console.log($clone);
+   //const $clone = document.getElementById("newrow").style;
+   //$clone.display = 'table-row';
+   //a = document.getElementById('newrow')
+   //console.log(a)
+   // tableID.find('tbody tr').last().clone(true).style.display =
+
+   //if (tableID.find('tbody tr').length === 0) {
+
+   //  $('tbody').append(newTr);
+   //}
+
+   tableID.append($clone);
+ });
+
+ tableID.on('click', '.table-remove', function () {
+
+   $(this).parents('tr').detach();
+ });
+
+ // A few jQuery helpers for exporting only
+ jQuery.fn.pop = [].pop;
+ jQuery.fn.shift = [].shift;
+
+ BTN.on('click', () => {
+
+   const $rows = tableID.find('tr:not(:hidden)');
+   const headers = [];
+   const data = [];
+
+   // Get the headers (add special header logic here)
+   $($rows.shift()).find('th:not(:empty)').each(function () {
+
+     headers.push($(this).text().toLowerCase());
+   });
+
+   // Turn all existing rows into a loopable array
+   $rows.each(function () {
+     const $td = $(this).find('td');
+     const h = {};
+
+     // Use the headers from earlier to name our hash keys
+     headers.forEach((header, i) => {
+
+       h[header] = $td.eq(i).text();
+     });
+
+     data.push(h);
+   });
+
+   // Output the result
+   EXPORT.text(JSON.stringify(data));
+   fieldJson = JSON.stringify(data);
+   console.log(fieldJson);
+ });
+</script> {% endcomment %}
+
+<script>
+const $tableID = $('#table');
+ const $BTN = $('#btn');
+ const $EXPORT = $('#export');
+
+ const newTr = `
+<tr class="hide">
+  <td class="pt-3-half" contenteditable="true">Example</td>
+  <td class="pt-3-half" contenteditable="true">Example</td>
+  <td class="pt-3-half" contenteditable="true">Example</td>
+
+  <td>
+    <span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0 waves-effect waves-light">Remove</button></span>
+  </td>
+</tr>`;
+
+ $('.table-add').on('click', 'i', () => {
+
+   const $clone = $tableID.find('tbody tr').last().clone(true).removeClass('hide table-line');
+
+   if ($tableID.find('tbody tr').length === 0) {
+
+     $('tbody').append(newTr);
+   }
+
+   $tableID.find('table').append($clone);
+ });
+
+ $tableID.on('click', '.table-remove', function () {
+
+   $(this).parents('tr').detach();
+ });
+
+
+
+ // A few jQuery helpers for exporting only
+ jQuery.fn.pop = [].pop;
+ jQuery.fn.shift = [].shift;
+
+ $BTN.on('click', () => {
+
+   const $rows = $tableID.find('tr:not(:hidden)');
+   const headers = [];
+   const data = [];
+
+   // Get the headers (add special header logic here)
+   $($rows.shift()).find('th:not(:empty)').each(function () {
+
+     headers.push($(this).text().toLowerCase());
+     console.log(headers);
+   });
+
+   // Turn all existing rows into a loopable array
+   $rows.each(function (a) {
+     const $td = $(this).find('td');
+     const h = {};
+     //console.log($td)
+
+     // Use the headers from earlier to name our hash keys
+     headers.forEach((header, i) => {
+       console.log(i);
+       if (i === 0){
+        h[header] = $td.eq(i).text();
+       }
+       else if ( i === 1){
+        //const fieldTypes = document.getElementById("optioninfo");
+        console.log($rows[a].cells[1])
+        h[header] = $rows[a].cells[1].children[0].value;
+       }
+      else if ( i === 2){
+        console.log($rows[a].cells[2].children[0])
+         h[header] = $rows[a].cells[2].children[0].value
+      }
+      else{
+        
+      }
+       
+     });
+
+     data.push(h);
+
+   });
+    //  const deneme = {
+
+    //title: document.getElementById('dt_fieldrequire').value,
+    //options: document.getElementById('denemee').val()
+ // }
+  //console.log(deneme);
+   // Output the result
+   //$EXPORT.text(JSON.stringify(data));
+    fieldJson = JSON.stringify(data);
+    $("#send").val(fieldJson);
+   console.log(fieldJson);
+ });
+
+function selectedoptions() {
+  var x = document.getElementById("optioninfo").value;
+  document.getElementById("optioninfo").value = x;
+};
+</script>
+
 </body>
+
+
 </html>
