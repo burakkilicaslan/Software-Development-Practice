@@ -19,7 +19,7 @@ class community_header(models.Model):
         return reverse('community:community_detail', kwargs={"pk" : self.pk})
 
     def __str__(self):
-        return self.name + "--" + self.desc
+        return self.name + "--" + self.name
 
 
 class DataFieldTypes(Enum):
@@ -55,7 +55,22 @@ class post_type_header(models.Model):
         return reverse('community:community_detail', kwargs= {"pk" : self.pk})
 
     def __str__(self):
-        return self.name + "--" + self.desc
+        return self.name + "--" + self.name
+
+
+class post(models.Model):
+    post_posttype = models.ForeignKey(post_type_header, default="", on_delete=models.CASCADE)
+    name = models.CharField(max_length= 100)
+    desc = models.TextField()
+    semantic_tag = models.CharField(max_length = 150)
+    data_fields = JSONField(default="")
+
+    def get_absolute_url(self):
+        return reverse('community:community_detail', kwargs= {"pk" : self.pk})
+
+    def __str__(self):
+        return self.name + "--" + self.name
+
 
 
 

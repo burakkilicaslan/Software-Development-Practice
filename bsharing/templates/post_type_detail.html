@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% comment %} {% block a %}  <a class="nav-link" href=" {% url 'community:post_type_create' community_header.id %}"> {% endblock %} {% endcomment %}
+ {% block a %}  <a class="nav-link" href=" {% url 'community:post_create' post_type.id %}"> {% endblock %} 
 
 {% comment %} {% block href %} {% url 'community:post_type_create' %} {% endblock %} {% endcomment %}
 
@@ -16,28 +16,10 @@
       <!-- Blog Entries Column -->
       <div class="col-md-8">
 
-        <h1 class="my-4"> {{ community_header.name }}
+        <h1 class="my-4"> {{ post_type.name }}
           
         </h1>
-        <h3>{{ community_header.desc }}</h3>
-
-
-        {% for post_type in post_type_list %}
-          <div class="card mb-4">         
-            {% comment %} <img class="card-img-top" src="#" alt="Card image cap"> {% endcomment %}
-            <div class="card-body">
-              <h2 class="card-title"> {{ post_type.name }} </h2>
-              <p class="card-text">{{ post_type.desc }} </p>
-              <a href=" {% url 'community:post_type_detail' post_type.id %} " class="btn btn-primary">Go! &rarr;</a>
-            </div>
-            <div class="card-footer text-muted">
-              Created by 
-              <a href="#"></a>
-            </div>
-          
-          </div>
-          {% endfor %}
-          
+        <h3>{{ post_type.desc }}</h3>
         <!-- Pagination -->
         <ul class="pagination justify-content-center mb-4">
           <li class="page-item">
