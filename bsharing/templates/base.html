@@ -191,22 +191,7 @@ const $tableID = $('#table');
    $(this).parents('tr').detach();
  });
 
- $tableID.on('click', '.table-up', function () {
 
-   const $row = $(this).parents('tr');
-
-   if ($row.index() === 1) {
-     return;
-   }
-
-   $row.prev().before($row.get(0));
- });
-
- $tableID.on('click', '.table-down', function () {
-
-   const $row = $(this).parents('tr');
-   $row.next().after($row.get(0));
- });
 
  // A few jQuery helpers for exporting only
  jQuery.fn.pop = [].pop;
@@ -222,31 +207,56 @@ const $tableID = $('#table');
    $($rows.shift()).find('th:not(:empty)').each(function () {
 
      headers.push($(this).text().toLowerCase());
+     console.log(headers);
    });
 
    // Turn all existing rows into a loopable array
-   $rows.each(function () {
+   $rows.each(function (a) {
      const $td = $(this).find('td');
      const h = {};
+     //console.log($td)
 
      // Use the headers from earlier to name our hash keys
      headers.forEach((header, i) => {
-
-       h[header] = $td.eq(i).text();
+       console.log(i);
+       if (i === 0){
+        h[header] = $td.eq(i).text();
+       }
+       else if ( i === 1){
+        //const fieldTypes = document.getElementById("optioninfo");
+        console.log($rows[a].cells[1])
+        h[header] = $rows[a].cells[1].children[0].value;
+       }
+      else if ( i === 2){
+        console.log($rows[a].cells[2].children[0])
+         h[header] = $rows[a].cells[2].children[0].value
+      }
+      else{
+        
+      }
+       
      });
 
      data.push(h);
-   });
 
+   });
+    //  const deneme = {
+
+    //title: document.getElementById('dt_fieldrequire').value,
+    //options: document.getElementById('denemee').val()
+ // }
+  //console.log(deneme);
    // Output the result
-   $EXPORT.text(JSON.stringify(data));
+   //$EXPORT.text(JSON.stringify(data));
     fieldJson = JSON.stringify(data);
     $("#send").val(fieldJson);
    console.log(fieldJson);
  });
 
-
-
+function selectedoptions() {
+  var x = document.getElementById("optioninfo").value;
+  document.getElementById("optioninfo").value = x;
+};
 </script>
 
 </body>
