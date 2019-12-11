@@ -48,7 +48,7 @@ class post_type_header(models.Model):
     name = models.CharField(max_length = 100)
     desc = models.TextField()
     semantic_tag = models.CharField(max_length = 150)
-    fields = JSONField(default = "")
+    datafields = JSONField(default = "")
     #fields_type = JSONField(default = "")
 
     def get_absolute_url(self):

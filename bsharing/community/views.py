@@ -6,6 +6,9 @@ from django.template import loader
 from .forms import post_type_create_form, post_create_form
 from django.views.decorators.csrf import csrf_exempt
 import json
+from django.core.serializers.json import DjangoJSONEncoder
+from django.core import serializers
+
 
 
 
@@ -71,20 +74,27 @@ def post_type_create(request, community_header_id):
     return render(request, 'post_type_form.html', {'form': form})
 def post_create(request, post_type_id):
     post_type = get_object_or_404(post_type_header, pk=post_type_id)
-
-    if request.method == 'POST':
-        form = post_create_form(request.POST)
-        if form.is_valid():
-            post = form.save(commit=False)
-            post.save()
-
-            return HttpResponse("success")
-        return render(request, 'post_form.html', {'form': form})
+    form = post_create_form(request.POST)
+    tmpObj = serializers.serialize("json", post_type_header.objects.filter(pk=post_type_id).only("datafields"))
+    data_fields = json.loads(tmpObj)
+    print(data_fields)
     
-    else: 
-        form = post_create_form()
+
+    # if request.method == 'POST':
+    #     form = post_create_form(request.POST)
+    #     if form.is_valid():
+    #         post = form.save(commit=False)
+    #         post.save()
+
+    #         return HttpResponse("success")
+    #return render(request, 'post_form.html', {'form': form, "data_fields": data_fields[0]["fields"]["datafields"]})
+    return render(request, 'post_form.html', {'form': form, "data_fields": data_fields[0]["fields"]["datafields"][2]})
+
     
-    return render(request, 'post_form.html', {'form': form})
+    # else: 
+    #     form = post_create_form()
+    
+    # return render(request, 'post_form.html', {'form': form})
 
 
 
