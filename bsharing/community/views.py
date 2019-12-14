@@ -3,15 +3,13 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .models import community_header, post_type_header
 from django.http import HttpResponse, JsonResponse, Http404
 from django.template import loader
-from .forms import post_type_create_form, post_create_form
+from .forms import post_type_create_form, post_create_form, register_form
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth import authenticate, login, logout
 import json
 from django.core.serializers.json import DjangoJSONEncoder
 from django.core import serializers
 from .serializers import post_type_headerSerializer
-# from django.contrib.gis.serializers.geojson import Serializer
-# from django.db.models import Manager
-
 
 
 
@@ -47,27 +45,6 @@ class Community_Create(CreateView):
     template_name = "community_form.html"
     fields = ["user_name", "name", "desc","semantic_tag"]
 
-# class CustomSerializer(Serializer):
-    
-#     def end_object(self, obj):
-#         for field in self.selected_fields:
-#             if field == 'pk':
-#                 continue
-#             elif field in self._current.keys():
-#                 continue
-#             else:
-#                 try:
-#                     if '__' in field:
-#                         fields = field.split('__') 
-#                         value = obj
-#                         for f in fields:
-#                             value = getattr(value, f)
-#                         if value != obj and isinstance(value, JSON_ALLOWED_OBJECTS) or value == None:
-#                             self._current[field] = value
-
-#                 except AttributeError:
-#                     pass
-#         super(CustomSerializer, self).end_object(obj)
 
 @csrf_exempt
 def post_type_create(request, community_header_id):
@@ -102,13 +79,6 @@ def post_create(request, post_type_id):
     tmpObj = serializers.serialize("json", post_type_header.objects.filter(pk=post_type_id).only('datafields'))
     a = json.loads(tmpObj)
     data_fields = json.loads(a[0]["fields"]["datafields"])
-    #tmpobj = post_type_header.objects.filter(pk=post_type_id)
-    #serializer = post_type_headerSerializer(tmpobj, many=True)
-
-
-    #print(serializer)
-    
-
     # if request.method == 'POST':
     #     form = post_create_form(request.POST)
     #     if form.is_valid():
@@ -124,6 +94,41 @@ def post_create(request, post_type_id):
     #     form = post_create_form()
     
     # return render(request, 'post_form.html', {'form': form})
+
+#------------------------- ************************ -------------------------------------
+# Hem class based yapı ile generic view kullanılabilir, hem de fonksiyon bazlı view ile yazılabilir. Her ikisine de yer vereceğim ancak bir tanesi comment olarak kalacak. 
+
+class register_form(View):
+    form_class = register_form
+    template_name = "registration_form.html"
+
+    def get(self, request):
+        form = self.form_class(None)
+        return render(request, self.template_name, {'form': form})
+
+    def post(self, request):
+        form = self.form_class(request.POST)
+
+        if form.is_valid():
+            user = form.save(commit=False)
+
+            username = form.cleaned_data["username"]
+            password = form.cleaned_data["password"]
+            email = form.cleaned_data["email"]
+            user.set_password(password)
+            user.save()
+
+            user = authenticate(username=username, password=password)
+
+            if user is not None:
+                if user.is_active:
+                    login(request, user)
+                    request.user.username
+                    return redirect('community:index')
+        return render(request, self.template_name, {'form': form})
+
+
+
 
 
 

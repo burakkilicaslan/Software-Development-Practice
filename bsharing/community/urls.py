@@ -10,6 +10,7 @@ urlpatterns = [
     path('community/add/', views.Community_Create.as_view(), name ="community_create"),
     path('add/<int:community_header_id>/', views.post_type_create, name ="post_type_create"),
     path('post_type_detail/<pk>/', views.Post_Type_DetailView.as_view(), name = "post_type_detail"),
-    path('post/add/<int:post_type_id>/', views.post_create, name = "post_create")
+    path('post/add/<int:post_type_id>/', views.post_create, name = "post_create"),
+    path('community/registration/', views.register_form.as_view(), name="register")
     # path('<int:community_id>/', views.community, name = 'community')
 ]
