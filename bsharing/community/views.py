@@ -24,7 +24,6 @@ class Community_Listview(ListView):
 
 class Community_DetailView(DetailView):
     model = community_header #Hangi objenin ya da model'in detaylarını görmek istediğimizi belirtiyoruz.
-
     template_name = "community_detail.html"
     
     def get_context_data(self, **kwargs):
@@ -45,7 +44,8 @@ class Post_Type_DetailView(DetailView):
 
 def Community_Create(request):
     if not request.user.is_authenticated:
-        return render (request, 'login.html') 
+        form = login_form
+        return render (request, 'login_form.html', {'form':form}) 
 
     else:
         if request.method == "POST":
@@ -167,6 +167,11 @@ class login(View):
         else:
             return render(request, self.template_name, {"error_message":"Invalid Login Credentials"})
         return render(request, self.template_name, {'form': form})
+
+def UserLogout(request):
+    logout(request)
+    form = login_form(request.POST or None)
+    return render(request, "login_form.html", {"form":form})
         
 
 

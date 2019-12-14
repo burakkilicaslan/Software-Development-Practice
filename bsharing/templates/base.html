@@ -41,9 +41,9 @@
             
               </form>
             <ul class="navbar-nav ml-auto">
-            <li class="nav-item"> 
+            <li class="nav-item active"> 
                 {% block a %}  <a class="nav-link" href=" #  "> {% endblock %}
-                {% block navname %}<span class="glyphicon glyphicon-plus" ></span>&nbsp; Add Community {% endblock %}
+                {% block navname %}<span class="glyphicon glyphicon-plus" aria-hidden = "true"></span>&nbsp; Add Community {% endblock %}
                 </a>
             </li>
             <li class="nav-item">
@@ -53,7 +53,7 @@
                 <a class="nav-link" href={% url 'community:login' %}>Login</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Contact</a>
+                <a class="nav-link"  href={% url 'community:logout' %}>Logout</a>
             </li>
             </ul>
 
