@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title> {% block title %} Welcome Bsharing {% endblock %} </title>
+
 
     {% load staticfiles %} <!-- loads the path to static files -->
     <link href={% static 'community/style.css' %} rel="stylesheet">
@@ -22,42 +22,42 @@
      {% comment %} <link href="css/blog-home.css" rel="stylesheet"> {% endcomment %}
     {% comment %} <script src={% static 'bootstrap/vendor/jquery/jquery.min.js' %}></script>
     <script src= {% static 'bootstrap/vendor/bootstrap/js/bootstrap.bundle.min.js' %}></script> {% endcomment %}
-
+    <title> {% block title %} Welcome Bsharing {% endblock %} </title>
 </head>
 <body>
       <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container">
-        <a class="navbar-brand" href={% url 'community:index' %}>Bsharing</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-            <form class = "form-inline col align-self-center lg" role = "search" method= "get" action = "#">
+            <a class="navbar-brand" href={% url 'community:index' %}>Bsharing</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+          <div class="collapse navbar-collapse" id="navbarResponsive">
+              <form class = "form-inline col align-self-center lg" role = "search" method= "get" action = "#">
                 <div class = "form-group">
                     <input type="text" class = "form-control" name = "q" value = "">
                     <button type = "submit" class = "btn btn-dark">Search</button>
                 </div>
             
-            </form>
+              </form>
             <ul class="navbar-nav ml-auto">
-            <li class="nav-item active"> 
+            <li class="nav-item"> 
                 {% block a %}  <a class="nav-link" href=" #  "> {% endblock %}
-                {% block navname %}<span class="glyphicon glyphicon-plus" aria-hidden = "true"></span>&nbsp; Add Community {% endblock %}
+                {% block navname %}<span class="glyphicon glyphicon-plus" ></span>&nbsp; Add Community {% endblock %}
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href={% url 'community:register' %}>Registration</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Services</a>
+                <a class="nav-link" href={% url 'community:login' %}>Login</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Contact</a>
             </li>
             </ul>
 
-        </div>
+          </div>
         </div>
     </nav>
     {% block body %}
@@ -81,82 +81,6 @@
     <!-- MDB core JavaScript -->
     <script type="text/javascript" src={% static "MDB/js/mdb.min.js"%}></script>
 
-
-{% comment %} <script>
-
-const tableID = $('table');
-const BTN = $('export-btn');
-const EXPORT = $('export'); {% endcomment %}
-
-{% comment %} const newTr = `
-<tr class="hide">
-  <td class="pt-3-half" contenteditable="true">Example</td>
-  <td class="pt-3-half" contenteditable="true">Example</td>
-  <td class="pt-3-half" contenteditable="true">Example</td>
-  <td>
-    <span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0 waves-effect waves-light">Remove</button></span>
-  </td>
-</tr>`; {% endcomment %}
-
- {% comment %} $('table-add').on('click', 'i', () => {
-    
-    const $clone = tableID.find('tbody tr').last().clone().removeClass('hide');
-    console.log($clone);
-   //const $clone = document.getElementById("newrow").style;
-   //$clone.display = 'table-row';
-   //a = document.getElementById('newrow')
-   //console.log(a)
-   // tableID.find('tbody tr').last().clone(true).style.display =
-
-   //if (tableID.find('tbody tr').length === 0) {
-
-   //  $('tbody').append(newTr);
-   //}
-
-   tableID.append($clone);
- });
-
- tableID.on('click', '.table-remove', function () {
-
-   $(this).parents('tr').detach();
- });
-
- // A few jQuery helpers for exporting only
- jQuery.fn.pop = [].pop;
- jQuery.fn.shift = [].shift;
-
- BTN.on('click', () => {
-
-   const $rows = tableID.find('tr:not(:hidden)');
-   const headers = [];
-   const data = [];
-
-   // Get the headers (add special header logic here)
-   $($rows.shift()).find('th:not(:empty)').each(function () {
-
-     headers.push($(this).text().toLowerCase());
-   });
-
-   // Turn all existing rows into a loopable array
-   $rows.each(function () {
-     const $td = $(this).find('td');
-     const h = {};
-
-     // Use the headers from earlier to name our hash keys
-     headers.forEach((header, i) => {
-
-       h[header] = $td.eq(i).text();
-     });
-
-     data.push(h);
-   });
-
-   // Output the result
-   EXPORT.text(JSON.stringify(data));
-   fieldJson = JSON.stringify(data);
-   console.log(fieldJson);
- });
-</script> {% endcomment %}
 
 <script>
 const $tableID = $('#table');

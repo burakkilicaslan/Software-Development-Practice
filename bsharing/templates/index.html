@@ -18,27 +18,19 @@
           <div class="card mb-4">         
             {% comment %} <img class="card-img-top" src="#" alt="Card image cap"> {% endcomment %}
             <div class="card-body">
-              <h2 class="card-title"> {{ community.name }} </h2>
-              <p class="card-text">{{ community.desc }} </p>
-              <a href=" {% url 'community:community_detail' community.id %} " class="btn btn-primary">Go! &rarr;</a>
+              <h2 class="card-title"> {{ community.name }} </h2> <br>
+              <h5 class="card-subtitle">{{ community.desc }} </h5><br>
+              <p class "card-text"> tags: #{{ community.semantic_tag }} </p>
+              <a href=" {% url 'community:community_detail' community.id %} " class=" btn btn-sm btn-primary">Go! &rarr;</a>
             </div>
             <div class="card-footer text-muted">
-              Created by {{ community.user_name }}
+              Created by {{ community.user }} // {{community.published_date}} 
               <a href="#"></a>
             </div>
           
           </div>
           {% endfor %}
 
-        <!-- Pagination -->
-        <ul class="pagination justify-content-center mb-4">
-          <li class="page-item">
-            <a class="page-link" href="#">&larr; Older</a>
-          </li>
-          <li class="page-item disabled">
-            <a class="page-link" href="#">Newer &rarr;</a>
-          </li>
-        </ul>
 
       </div>
 
@@ -110,10 +102,5 @@
   <!-- /.container -->
 
   <!-- Footer -->
-  <footer class="py-5 bg-dark">
-    <div class="container">
-      <p class="m-0 text-center text-white"> </p>
-    </div>
-    <!-- /.container -->
-  </footer>
+
 {% endblock %}
