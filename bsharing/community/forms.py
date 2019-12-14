@@ -11,4 +11,10 @@ class post_type_create_form(forms.ModelForm):
 class post_create_form(forms.ModelForm):
     class Meta:
         model = post
-        fields = ["name", "desc", "semantic_tag", "data_fields"]
+        fields = ["name", "desc", "semantic_tag"]
+
+class register_form(forms.ModelForm):
+    password = forms.CharField(widget=forms.PasswordInput)
+    class Meta:
+         model = User
+         fields = ['username', 'email', 'password']
