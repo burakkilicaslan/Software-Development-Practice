@@ -257,6 +257,10 @@ function selectedoptions() {
   var x = document.getElementById("optioninfo").value;
   document.getElementById("optioninfo").value = x;
 };
+
+var x = {{ data_fields|safe }}
+a = JSON.parse(x[0]['fields']['datafields'])
+console.log(a);
 </script>
 
 </body>

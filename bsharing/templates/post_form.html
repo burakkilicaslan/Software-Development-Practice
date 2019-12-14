@@ -35,23 +35,12 @@
                                       </tr>
                                     </thead>
                                     <tbody>
+                                    {% for data in data_fields %}
                                         <tr>
                                         {% comment %} <td> <input type="text" id="dt_fieldlabel" class="pt-3-half" name="fieldlabel" contenteditable="true"> </td> {% endcomment %}
-                                        <td class="pt-3-half" contenteditable="true" id = "textinfo" value ="30"> {{ data_fields }} </td>
+                                        <td class="pt-3-half" contenteditable="true" id = "textinfo24" value ={{ data_fields }}> {{ data.fieldlabel }} </td>
                                         <td>
-                                            <select class="mdb-select md-form floatLabel_dt" name="fieldtype" id="optioninfo" onchange="selectedoptions()" >
-                                                <option value="" disabled selected>Choose your option</option>
-                                                <option value="TE">Text field</option>
-                                                <option value="TA">Text area</option>
-                                                <option value="DA">Date</option>
-                                                <option value="TI">Time</option>
-                                                <option value="IN">Integer</option>
-                                                <option value="IM">Image</option>
-                                                <option value="VI">Video</option>
-                                                <option value="AU">Audio</option>
-                                                <option value="UR">URI</option>
-                                                <option value="LO">Location</option>
-                                            </select>
+                                           <input type= {{ data.fieldtype }} name="firstname">
                                         </td>
                                         <td>
                                             <input type="checkbox" data-toggle="toggle" data-style="ios" id="requireinfo" name="fieldrequire" checked  >
@@ -63,33 +52,7 @@
                                               class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
                                         </td>
                                       </tr>
-                                      <tr class="hide" id = "newrow">
-                                        {% comment %} <td> <input type="text" id="dt_fieldlabel" class="pt-3-half" name="fieldlabel" contenteditable="true"> </td> {% endcomment %}
-                                        <td class="pt-3-half" contenteditable="true" id = "textinfo">30 </td>
-                                        <td>
-                                            <select class="mdb-select md-form floatLabel_dt" name="fieldtype" id="optioninfo" contenteditable="true">
-                                                <option value="" disabled selected>Choose your option</option>
-                                                <option value="TE">Text field</option>
-                                                <option value="TA">Text area</option>
-                                                <option value="DA">Date</option>
-                                                <option value="TI">Time</option>
-                                                <option value="IN">Integer</option>
-                                                <option value="IM">Image</option>
-                                                <option value="VI">Video</option>
-                                                <option value="AU">Audio</option>
-                                                <option value="UR">URI</option>
-                                                <option value="LO">Location</option>
-                                            </select>
-                                        </td>
-                                        <td>
-                                            <input type="checkbox" data-toggle="toggle" data-style="ios"  id="requireinfo" name="fieldrequire">
-                                        </td>
-
-                                        <td>
-                                          <span class="table-remove"><button type="button"
-                                              class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
-                                        </td>
-                                      </tr>
+                                    {% endfor %}
                                     </tbody>
                                   </table>
                                 </div>

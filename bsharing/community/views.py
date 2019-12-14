@@ -8,6 +8,9 @@ from django.views.decorators.csrf import csrf_exempt
 import json
 from django.core.serializers.json import DjangoJSONEncoder
 from django.core import serializers
+from .serializers import post_type_headerSerializer
+# from django.contrib.gis.serializers.geojson import Serializer
+# from django.db.models import Manager
 
 
 
@@ -26,7 +29,6 @@ class Community_DetailView(DetailView):
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
         context = super().get_context_data(**kwargs)
-        # Add in a QuerySet of all the books
         context['post_type_list'] = post_type_header.objects.all()
         return context
 
@@ -45,6 +47,27 @@ class Community_Create(CreateView):
     template_name = "community_form.html"
     fields = ["user_name", "name", "desc","semantic_tag"]
 
+# class CustomSerializer(Serializer):
+    
+#     def end_object(self, obj):
+#         for field in self.selected_fields:
+#             if field == 'pk':
+#                 continue
+#             elif field in self._current.keys():
+#                 continue
+#             else:
+#                 try:
+#                     if '__' in field:
+#                         fields = field.split('__') 
+#                         value = obj
+#                         for f in fields:
+#                             value = getattr(value, f)
+#                         if value != obj and isinstance(value, JSON_ALLOWED_OBJECTS) or value == None:
+#                             self._current[field] = value
+
+#                 except AttributeError:
+#                     pass
+#         super(CustomSerializer, self).end_object(obj)
 
 @csrf_exempt
 def post_type_create(request, community_header_id):
@@ -56,7 +79,7 @@ def post_type_create(request, community_header_id):
             post_type = form.save(commit=False)
             post_type.post_community = community
             jsonfields = request.POST.get('fieldJson')
-            post_type.fields = jsonfields
+            post_type.datafields = jsonfields
             # for i in request.POST.get("table1", ""):
             #     post_type.fields[i] ={
             #     "fieldLabel": request.POST.get("fieldlabel", ""),
@@ -72,12 +95,18 @@ def post_type_create(request, community_header_id):
         form = post_type_create_form()
 
     return render(request, 'post_type_form.html', {'form': form})
+
 def post_create(request, post_type_id):
     post_type = get_object_or_404(post_type_header, pk=post_type_id)
     form = post_create_form(request.POST)
-    tmpObj = serializers.serialize("json", post_type_header.objects.filter(pk=post_type_id).only("datafields"))
-    data_fields = json.loads(tmpObj)
-    print(data_fields)
+    tmpObj = serializers.serialize("json", post_type_header.objects.filter(pk=post_type_id).only('datafields'))
+    a = json.loads(tmpObj)
+    data_fields = json.loads(a[0]["fields"]["datafields"])
+    #tmpobj = post_type_header.objects.filter(pk=post_type_id)
+    #serializer = post_type_headerSerializer(tmpobj, many=True)
+
+
+    #print(serializer)
     
 
     # if request.method == 'POST':
@@ -88,18 +117,13 @@ def post_create(request, post_type_id):
 
     #         return HttpResponse("success")
     #return render(request, 'post_form.html', {'form': form, "data_fields": data_fields[0]["fields"]["datafields"]})
-    return render(request, 'post_form.html', {'form': form, "data_fields": data_fields[0]["fields"]["datafields"][2]})
+    return render(request, 'post_form.html', {'form': form, 'post_type': post_type, "data_fields": data_fields})
 
     
     # else: 
     #     form = post_create_form()
     
     # return render(request, 'post_form.html', {'form': form})
-
-
-
-
-
 
 
 
