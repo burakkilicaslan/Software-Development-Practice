@@ -13,28 +13,13 @@
         <h1 class="my-4">Bsharing
           <small>Community Share Platform</small>
         </h1>
-        <h2 class="my-4"> Welcome {{ user.username }}  </h2>
-                        {% if error_message %}
-                            <p><strong>{{ error_message }}</strong></p>
-                        {% endif %}
-          {% for community in all_communities %}
-          <div class="card mb-4">         
-            {% comment %} <img class="card-img-top" src="#" alt="Card image cap"> {% endcomment %}
-            <div class="card-body">
-              <h2 class="card-title"> {{ community.name }} </h2> <br>
-              <h5 class="card-subtitle">{{ community.desc }} </h5><br>
-              <p class "card-text"> tags: #{{ community.semantic_tag }} </p>
-              <a href=" {% url 'community:community_detail' community.id %} " class=" btn btn-sm btn-primary">Go! &rarr;</a>
-              <a href=" {% url 'community:community_update' community.id %} " class=" btn btn-sm btn-primary">Update! &rarr;</a>
-              
-            </div>
-            <div class="card-footer text-muted">
-              Created by {{ community.user }} // {{community.published_date}} 
-              <a href="#"></a>
-            </div>
-          
-          </div>
-          {% endfor %}
+        <h2 class="my-4"> Welcome! </h2>
+
+        <p class="my-4"> If you have not account, register!</p>
+        <p class="my-4"> If you have an account, login!</p>
+
+
+
 
 
       </div>

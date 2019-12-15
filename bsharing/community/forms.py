@@ -30,3 +30,9 @@ class login_form(forms.ModelForm):
     class Meta:
         model = User
         fields = ['username', 'password']
+
+class community_update_form(forms.ModelForm):
+    class Meta:
+        model = community_header
+        fields = ["name", "desc", "semantic_tag"]
+

@@ -22,7 +22,7 @@
         <h2 class="my-4">{{ community_header.desc }}</h2>
 
         <!-- object is community_header model. community_header is foreign key for post_type_header. So _set.all method retrieves post_types which is belong to spesific community_header.-->
-        {% for post_type in  post_type_list%} 
+        {% for post_type in object.post_type_header_set.all %} 
           <div class="card mb-4">         
             {% comment %} <img class="card-img-top" src="#" alt="Card image cap"> {% endcomment %}
             <div class="card-body">
