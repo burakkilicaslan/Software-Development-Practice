@@ -16,10 +16,10 @@
 
 
         <!-- Todo. eğer arama sonucu yoksa uyarı mesajı yazmalı. -->
-        {% if community.name == False %}
-        <h3 class="my-4"> There is no community related to your search </h3>
+        {% if communities %}
 
-        {% endif %}
+
+
         {% for comm in communities %} 
           <div class="card mb-4">         
             {% comment %} <img class="card-img-top" src="#" alt="Card image cap"> {% endcomment %}
@@ -36,6 +36,10 @@
           
           </div>
           {% endfor %}
+
+        {% else %}
+        <h3 class="my-4"> There is no community related to your search </h3>
+        {% endif %}
 
 
 
