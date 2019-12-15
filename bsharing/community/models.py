@@ -72,6 +72,10 @@ class post(models.Model):
     def __str__(self):
         return self.name + "--" + self.name
 
+class community_join(models.Model):
+    related_community = models.ForeignKey(community_header, default="", on_delete=models.CASCADE)
+    joined_user = models.ForeignKey(User, on_delete=models.CASCADE)
+
 
 
 
