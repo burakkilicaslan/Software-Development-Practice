@@ -19,7 +19,7 @@
         <h1 class="my-4"> {{ community_header.name }}
           
         </h1>
-        <h3>{{ community_header.desc }}</h3>
+        <h2 class="my-4">{{ community_header.desc }}</h2>
 
 
         {% for post_type in post_type_list %}
@@ -39,14 +39,14 @@
           {% endfor %}
           
         <!-- Pagination -->
-        <ul class="pagination justify-content-center mb-4">
+        {% comment %} <ul class="pagination justify-content-center mb-4">
           <li class="page-item">
             <a class="page-link" href="#">&larr; Older</a>
           </li>
           <li class="page-item disabled">
             <a class="page-link" href="#">Newer &rarr;</a>
           </li>
-        </ul>
+        </ul> {% endcomment %}
 
       </div>
 
@@ -54,7 +54,7 @@
       <div class="col-md-4">
 
         <!-- Search Widget -->
-        <div class="card my-4">
+        {% comment %} <div class="card my-4">
           <h5 class="card-header">Search</h5>
           <div class="card-body">
             <div class="input-group">
@@ -64,7 +64,7 @@
               </span>
             </div>
           </div>
-        </div>
+        </div> {% endcomment %}
 
         <!-- Categories Widget -->
         <div class="card my-4">

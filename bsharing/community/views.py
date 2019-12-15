@@ -3,13 +3,15 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .models import community_header, post_type_header
 from django.http import HttpResponse, JsonResponse, Http404
 from django.template import loader
-from .forms import post_type_create_form, post_create_form, register_form
+from .forms import post_type_create_form, post_create_form, register_form, login_form, community_form
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate, login, logout
 import json
 from django.core.serializers.json import DjangoJSONEncoder
 from django.core import serializers
 from .serializers import post_type_headerSerializer
+from django.utils import timezone
+
 
 
 
@@ -40,10 +42,25 @@ class Post_Type_DetailView(DetailView):
         return post_type_header.objects.all()
 
 
-class Community_Create(CreateView):
-    model = community_header
-    template_name = "community_form.html"
-    fields = ["user_name", "name", "desc","semantic_tag"]
+def Community_Create(request):
+    if not request.user.is_authenticated:
+        form = login_form
+        return render (request, 'login_form.html', {'form':form}) 
+
+    else:
+        if request.method == "POST":
+            form = community_form(request.POST)
+            if form.is_valid():
+                community_header = form.save(commit=False)
+                community_header.user = request.user
+                community_header.published_date = timezone.now()
+                community_header.save()
+                return render ( request, "community_detail.html", {'community_header': community_header})
+            return render ( request, "community_form.html", {'community_header': community_header})
+        else:
+            form = community_form()
+            return render ( request, "community_form.html", {"form": form})
+
 
 
 @csrf_exempt
@@ -123,9 +140,39 @@ class register_form(View):
             if user is not None:
                 if user.is_active:
                     login(request, user)
-                    request.user.username
                     return redirect('community:index')
         return render(request, self.template_name, {'form': form})
+
+
+class login_user(View):
+    form_class = login_form
+    template_name = 'login_form.html'
+
+    def get(self, request):
+        form = self.form_class(None)
+        return render(request, self.template_name, {'form': form})
+    
+    def post(self, request):
+        form = self.form_class(request.POST)
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(username=username, password=password)
+
+        if user is not None:
+            if user.is_active:
+                login(request, user)
+                return redirect('community:index')
+            else:
+                return render(request, self.template_name,{"error_message":"Your Account Has Been Disabled"})
+        else:
+            return render(request, self.template_name, {"error_message":"Invalid Login Credentials"})
+        return render(request, self.template_name, {'form': form})
+
+def UserLogout(request):
+    logout(request)
+    form = login_form(request.POST or None)
+    return render(request, "login_form.html", {"form":form})
+        
 
 
 

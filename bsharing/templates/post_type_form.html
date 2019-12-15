@@ -3,12 +3,12 @@
 
 <div class = "container-fluid">
 
-    <div class="container-fluid">
+    <div class="container">
         <div class="row">
-            <div class="col-sm-10 col-md-1500">
+            <div class="col-md-8">
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        <h3>Add a New Post_Type</h3>
+                        <h3 class="my-4"> Define Post Type</h3>
                         {% if error_message %}
                             <p><strong>{{ error_message }}</strong></p>
                         {% endif %}
@@ -17,126 +17,7 @@
                             <input type="hidden" name="community" value="{{ community }}">
                             <input hidden value ="" type="hidden" name="fieldJson" id = "send">
                             {% include 'form_template.html' %}
-                               <!-- <div class="form-group">
-                                    <div class="addfields">
-                                        <table class="table" id="myTable">
-                                            <thead>
-                                                <tr>
-                                                    <th scope="col">Field Label</th>
-                                                    <th scope="col">Field Type</th>
-                                                    <th scope="col">Is Required?</th>
-                                                    <th scope="col">Add New Item</th> 
-                                                </tr>
-                                            </thead>
-                                            <tbody name="table1">
-                                                <tr>
-                                                    <td>
-                                                        <input type="text" id="dt_fieldlabel" class="floatLabel_dt" name="fieldlabel">
-                                                    </td>
-                                                    <td>
-                                                        <select class="mdb-select md-form floatLabel_dt" name="fieldtype">
-                                                            <option value="" disabled selected>Choose your option</option>
-                                                            <option value="TE">Text field</option>
-                                                            <option value="TA">Text area</option>
-                                                            <option value="DA">Date</option>
-                                                            <option value="TI">Time</option>
-                                                            <option value="IN">Integer</option>
-                                                            <option value="IM">Image</option>
-                                                            <option value="VI">Video</option>
-                                                            <option value="AU">Audio</option>
-                                                            <option value="UR">URI</option>
-                                                            <option value="LO">Location</option>
-                                                        </select>
-                                                    </td>
-                                                    <td>
-                                                        <input type="checkbox" checked="true" data-toggle="toggle"
-                                                            data-style="ios"
-                                                            id="dt_fieldrequire" name="fieldrequire"
-                                                            data-onstyle="success">
-                                                    </td>
-                                                    <td>
-                                                        <button type="button" onclick = "myFunction()" class="btn btn-outline-success" id="addDataField">+</button>
-                                                    </td> 
-                                                </tr>
-                                            </tbody>
 
-                                            <tbody name="table1">
-                                                <tr>
-                                                    <td> 
-                                                        <input type="text" id="dt_fieldlabel" class="floatLabel_dt" name="fieldlabel">
-                                                     </td>
-                                                    <td>
-                                                        <select class="mdb-select md-form floatLabel_dt" name="fieldtype">
-                                                            <option value="" disabled selected>Choose your option</option>
-                                                            <option value="TE">Text field</option>
-                                                            <option value="TA">Text area</option>
-                                                            <option value="DA">Date</option>
-                                                            <option value="TI">Time</option>
-                                                            <option value="IN">Integer</option>
-                                                            <option value="IM">Image</option>
-                                                            <option value="VI">Video</option>
-                                                            <option value="AU">Audio</option>
-                                                            <option value="UR">URI</option>
-                                                            <option value="LO">Location</option>
-                                                        </select>
-                                                    </td>
-                                                    <td>
-                                                        <input type="checkbox" checked="true" data-toggle="toggle"
-                                                            data-style="ios"
-                                                            id="dt_fieldrequire" name="fieldrequire"
-                                                            data-onstyle="success">
-                                                    </td>
-                                                    <td> 
-                                                        <button type="button" onclick = "myFunction()" class="btn btn-outline-success" id="addDataField">+</button>
-                                                    </td> 
-                                                </tr>
-                                            </tbody>
-
-
-
-                                            <tbody name="table1">
-                                                <tr>
-
-                                                    <td>
-                                                        <input type="text" id="dt_fieldlabel" class="floatLabel_dt" name="fieldlabel">
-                                                    </td>
-                                                    <td>
-                                                        <select class="mdb-select md-form floatLabel_dt" name="fieldtype">
-                                                            <option value="" disabled selected>Choose your option</option>
-                                                            <option value="TE">Text field</option>
-                                                            <option value="TA">Text area</option>
-                                                            <option value="DA">Date</option>
-                                                            <option value="TI">Time</option>
-                                                            <option value="IN">Integer</option>
-                                                            <option value="IM">Image</option>
-                                                            <option value="VI">Video</option>
-                                                            <option value="AU">Audio</option>
-                                                            <option value="UR">URI</option>
-                                                            <option value="LO">Location</option>
-                                                        </select>
-                                                    </td>
-                                                    <td>
-                                                        <input type="checkbox" checked="true" data-toggle="toggle"
-                                                            data-style="ios"
-                                                            id="dt_fieldrequire" name="fieldrequire"
-                                                            data-onstyle="success">
-                                                    </td>
-                                                    <td>
-                                                        <button type="button" onclick = "myFunction()" class="btn btn-outline-success" id="addDataField">+</button>
-                                                    </td> 
-                                                </tr>
-                                            </tbody>
-
-                                        </table>
-                                    </div>               
-                                    <div class="form-group">
-                                        <div class="col-sm-offset-2 col-sm-2">
-                                            <button type="submit" class="btn btn-success">   Submit  </button>
-                                        </div>
-                                    </div>
-                                </div> -->
-
-                            <!-- Editable table -->
                             <div class="card">
                               <h3 class="card-header text-center font-weight-bold text-uppercase py-4">Editable table</h3>
                               <div class="card-body">
@@ -153,35 +34,10 @@
                                       </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                        {% comment %} <td> <input type="text" id="dt_fieldlabel" class="pt-3-half" name="fieldlabel" contenteditable="true"> </td> {% endcomment %}
-                                        <td class="pt-3-half" contenteditable="true" id = "textinfo" value ="30">30</td>
-                                        <td>
-                                            <select class="mdb-select md-form floatLabel_dt" name="fieldtype" id="optioninfo" onchange="selectedoptions()" >
-                                                <option value="" disabled selected>Choose your option</option>
-                                                <option value="text">Text field</option>
-                                                <option value="email">E-mail</option>
-                                                <option value="date">Date</option>
-                                                <option value="time">Time</option>
-                                                <option value="number">Integer</option>
-                                                <option value="image">Image</option>
-                                                <option value="url">URI</option>
-                                                <option value="LO">Location</option>
-                                            </select>
-                                        </td>
-                                        <td>
-                                            <input type="checkbox" data-toggle="toggle" data-style="ios" id="requireinfo" name="fieldrequire" checked  >
-                                        </td>
-                                        
-                                        {% comment %} <td class="pt-3-half" contenteditable="true">Deepends</td>  {% endcomment %}
-                                        <td>
-                                          <span class="table-remove"><button type="button"
-                                              class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
-                                        </td>
-                                      </tr>
+
                                       <tr class="hide" id = "newrow">
                                         {% comment %} <td> <input type="text" id="dt_fieldlabel" class="pt-3-half" name="fieldlabel" contenteditable="true"> </td> {% endcomment %}
-                                        <td class="pt-3-half" contenteditable="true" id = "textinfo">30 </td>
+                                        <td class="pt-3-half" contenteditable="true" id = "textinfo"> </td>
                                         <td>
                                             <select class="mdb-select md-form floatLabel_dt" name="fieldtype" id="optioninfo" contenteditable="true">
                                                 <option value="" disabled selected>Choose your option</option>

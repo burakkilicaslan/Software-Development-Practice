@@ -1,6 +1,7 @@
 from django.db import models
 from django.urls import reverse
 from django.contrib.postgres.fields import JSONField
+from django.contrib.auth.models import Permission, User
 from django.utils import timezone
 from enum import Enum
 import datetime
@@ -9,7 +10,7 @@ import datetime
 # Create your models here.
 
 class community_header(models.Model):
-    user_name = models.ForeignKey("auth.User", on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length = 100)
     desc = models.TextField()
     semantic_tag = models.CharField(max_length = 150)
