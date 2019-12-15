@@ -144,7 +144,7 @@ class register_form(View):
         return render(request, self.template_name, {'form': form})
 
 
-class login(View):
+class login_user(View):
     form_class = login_form
     template_name = 'login_form.html'
 

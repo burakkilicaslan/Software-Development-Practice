@@ -12,7 +12,7 @@ urlpatterns = [
     path('post_type_detail/<pk>/', views.Post_Type_DetailView.as_view(), name = "post_type_detail"),
     path('post/add/<int:post_type_id>/', views.post_create, name = "post_create"),
     path('community/registration/', views.register_form.as_view(), name="register"),
-    path('community/login/', views.login.as_view(), name= "login"),
-    path('community/logout/', views.logout, name= "logout")
+    path('community/login/', views.login_user.as_view(), name= "login"),
+    path('community/logout/', views.UserLogout, name= "logout")
     # path('<int:community_id>/', views.community, name = 'community')
 ]
