@@ -15,7 +15,7 @@
                         <form class="form-horizontal" method="post"  role="form" >
                             {% csrf_token %}
                             <input type="hidden" name="post_type" value="{{ post_type }}">
-                            <input hidden value ="" type="hidden" name="fieldJson" id = "send">
+                            <input hidden value ="" type="hidden" name="fieldJsonpost" id = "sendpost">
                             {% include 'form_template.html' %}
 
                             <!-- Editable table -->
@@ -30,8 +30,8 @@
                                       <tr>
                                         <th class="text-center">Field Label</th>
                                         <th class="text-center">Field Type</th>
-                                        <th class="text-center">Is Required?</th>
-                                        <th class="text-center">Remove</th>
+                                        {% comment %} <th class="text-center">Is Required?</th> {% endcomment %}
+                                        {% comment %} <th class="text-center">Remove</th> {% endcomment %}
                                       </tr>
                                     </thead>
                                     <tbody>
@@ -42,15 +42,15 @@
                                         <td>
                                            <input type= {{ data.fieldtype }} name="firstname">
                                         </td>
-                                        <td>
+                                        {% comment %} <td>
                                             <input type="checkbox" data-toggle="toggle" data-style="ios" id="requireinfo" name="fieldrequire" checked  >
-                                        </td>
+                                        </td> {% endcomment %}
                                         
                                         {% comment %} <td class="pt-3-half" contenteditable="true">Deepends</td>  {% endcomment %}
-                                        <td>
+                                        {% comment %} <td>
                                           <span class="table-remove"><button type="button"
                                               class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
-                                        </td>
+                                        </td> {% endcomment %}
                                       </tr>
                                     {% endfor %}
                                     </tbody>
@@ -60,7 +60,7 @@
                             </div>
 <!-- Editable table -->                  <div class="form-group">
                                         <div class="col-sm-offset-2 col-sm-2">
-                                            <button id="btn" type="submit" class="btn btn-success">   Submit  </button>
+                                            <button id="btn1" type="submit" class="btn btn-success">   Submit  </button>
                                         </div>
                                         </div>
                                         
