@@ -20,7 +20,7 @@ class community_header(models.Model):
         return reverse('community:community_detail', kwargs={"pk" : self.pk})
 
     def __str__(self):
-        return self.name + "--" + self.name
+        return self.name 
 
 
 class DataFieldTypes(Enum):

@@ -1,16 +1,16 @@
 from django.views.generic import CreateView, DetailView, ListView, UpdateView, DeleteView, View
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import community_header, post_type_header
+from .models import community_header, post_type_header, post
 from django.http import HttpResponse, JsonResponse, Http404
 from django.template import loader
 from .forms import post_type_create_form, post_create_form, register_form, login_form, community_form, community_update_form
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate, login, logout
 import json
-from django.core.serializers.json import DjangoJSONEncoder
 from django.core import serializers
 from .serializers import post_type_headerSerializer
 from django.utils import timezone
+from django.db.models import Q
 
 
 
@@ -67,7 +67,7 @@ def Community_Edit(request, community_header_id):
         return render (request, "community_form.html", {'form': form})
     else:
         all_communities = community_header.objects.order_by("-published_date")
-        return render (request, "index.html",  {"error_message":"You are not autherizaed to change this community"})
+        return render (request, "index.html",  {"error_message":"You are not autherizaed to change this community", 'community':community})
 
 
 
@@ -203,6 +203,26 @@ def UserLogout(request):
     form = login_form(request.POST or None)
     return render(request, "login_form.html", {"form":form})
         
+
+
+
+
+def search(request):
+    if not request.user.is_authenticated:
+        return render (request, 'index_visitor.html', {}) 
+    else: 
+        communities=community_header.objects.order_by("-published_date")
+        post_types = post_type_header.objects.all()
+        posts = post.objects.all()
+        query = request.GET.get('q')
+        #if request.method == 'POST':
+        if query: 
+            communities = communities.filter(Q(name__icontains=query) | Q(desc__icontains = query) | Q(semantic_tag__icontains = query)).distinct()
+            post_types = post_types.filter(Q(name__icontains = query) | Q(desc__icontains = query) | Q(semantic_tag__icontains = query)).distinct()
+            posts = posts.filter(Q(name__icontains=query) | Q(desc__icontains=query) | Q(semantic_tag__icontains = query)).distinct()
+            print(communities)
+        return render (request, 'search.html', {'communities': communities, 'post_types': post_types, 'posts': posts})
+    return render (request, 'index.html', {'communities': communities})
 
 
 

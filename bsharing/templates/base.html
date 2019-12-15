@@ -33,7 +33,7 @@
               <span class="navbar-toggler-icon"></span>
             </button>
           <div class="collapse navbar-collapse" id="navbarResponsive">
-              <form class = "form-inline col align-self-center lg" role = "search" method= "get" action = "#">
+             {% block form %} <form class = "form-inline col align-self-center lg" role = "search" method= "get" action = " "> {% endblock %}
                 <div class = "form-group">
                     <input type="text" class = "form-control" name = "q" value = "">
                     <button type = "submit" class = "btn btn-dark">Search</button>
