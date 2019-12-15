@@ -1,9 +1,9 @@
 from django.views.generic import CreateView, DetailView, ListView, UpdateView, DeleteView, View
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import community_header, post_type_header, post
+from .models import community_header, post_type_header, post, community_join
 from django.http import HttpResponse, JsonResponse, Http404
 from django.template import loader
-from .forms import post_type_create_form, post_create_form, register_form, login_form, community_form, community_update_form
+from .forms import post_type_create_form, post_create_form, register_form, login_form, community_form, community_update_form, community_join_form
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate, login, logout
 import json
@@ -71,7 +71,6 @@ def Community_Edit(request, community_header_id):
 
 
 
-
 def Community_Create(request):
     if not request.user.is_authenticated:
         form = login_form
@@ -112,7 +111,7 @@ def post_type_create(request, community_header_id):
             #    }
             post_type.save()
 
-            return HttpResponse("success")
+            return render (request, 'post_type_detail.html', {'post_type':post_type})
         return render(request, 'post_type_form.html', {'form': form})
 
     else: 
@@ -122,15 +121,21 @@ def post_type_create(request, community_header_id):
 
 def post_create(request, post_type_id):
     post_type = get_object_or_404(post_type_header, pk=post_type_id)
-    form = post_create_form(request.POST)
     tmpObj = serializers.serialize("json", post_type_header.objects.filter(pk=post_type_id).only('datafields'))
     a = json.loads(tmpObj)
     data_fields = json.loads(a[0]["fields"]["datafields"])
-    # if request.method == 'POST':
-    #     form = post_create_form(request.POST)
-    #     if form.is_valid():
-    #         post = form.save(commit=False)
-    #         post.save()
+    if request.method == 'POST':
+        form = post_create_form(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.post_posttype = post_type 
+            jsonfields = request.POST.get('fieldJsonpost')
+            post.data_fields = jsonfields
+            post.save()
+            return render(request, 'post_type_detail.html', {'post_type': post_type})
+        return render(request, 'post_form.html', {'form': form})
+    else:
+        form = post_create_form()
 
     #         return HttpResponse("success")
     #return render(request, 'post_form.html', {'form': form, "data_fields": data_fields[0]["fields"]["datafields"]})
@@ -204,9 +209,6 @@ def UserLogout(request):
     return render(request, "login_form.html", {"form":form})
         
 
-
-
-
 def search(request):
     if not request.user.is_authenticated:
         return render (request, 'index_visitor.html', {}) 
@@ -224,6 +226,21 @@ def search(request):
         return render (request, 'search.html', {'communities': communities, 'post_types': post_types, 'posts': posts})
     return render (request, 'index.html', {'communities': communities})
 
+def join(request, community_header_id):
+
+    if not request.user.is_authenticated:
+        return render (request, 'index_visitor.html', {})
+    else:
+        all_communities = community_header.objects.order_by("-published_date")
+        community = get_object_or_404(community_header, pk=community_header_id)
+        form = community_join_form(request.POST or None)
+        community_j = form.save(commit=False)
+        #all_communities = community_header.objects.order_by("-published_date")
+        community_j.related_community = community
+        community_j.joined_user = request.user
+        community_j.save()
+
+        return render(request, 'index.html', {'all_communities': all_communities})
 
 
 

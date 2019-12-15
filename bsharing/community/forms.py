@@ -1,5 +1,5 @@
 from django import forms
-from .models import community_header, post_type_header, post, community_header
+from .models import community_header, post_type_header, post, community_header, community_join
 from django.contrib.auth.models import User
 
 
@@ -35,4 +35,10 @@ class community_update_form(forms.ModelForm):
     class Meta:
         model = community_header
         fields = ["name", "desc", "semantic_tag"]
+
+class community_join_form(forms.ModelForm):
+    class Meta:
+        model = community_join
+        fields = []
+
 

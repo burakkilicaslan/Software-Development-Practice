@@ -15,7 +15,8 @@ urlpatterns = [
     path('community/login/', views.login_user.as_view(), name= "login"),
     path('community/logout/', views.UserLogout, name= "logout"),
     path('community/update/<int:community_header_id>/', views.Community_Edit, name = "community_update"),
-    path('community/search/', views.search, name="search")
+    path('community/search/', views.search, name="search"),
+    path('community/join/<int:community_header_id>/', views.join, name="join")
     
     # path('<int:community_id>/', views.community, name = 'community')
 ]
