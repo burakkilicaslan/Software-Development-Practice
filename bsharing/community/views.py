@@ -28,10 +28,9 @@ class Community_DetailView(DetailView):
     
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
-        context = super().get_context_data(**kwargs)
-        context['post_type_list'] = post_type_header.objects.all()
+        context = super(Community_DetailView, self).get_context_data(**kwargs)
+        context['post_type_list'] = post_type_header.objects.filter(post_community=self.object)
         return context
-
 
 class Post_Type_DetailView(DetailView):
     model = post_type_header
@@ -119,11 +118,11 @@ class register_form(View):
     form_class = register_form
     template_name = "registration_form.html"
 
-    def get(self, request):
+    def get(self, request): #this means that IF request.method == 'GET'
         form = self.form_class(None)
         return render(request, self.template_name, {'form': form})
 
-    def post(self, request):
+    def post(self, request): #this means that IF request.method == 'POST'
         form = self.form_class(request.POST)
 
         if form.is_valid():
