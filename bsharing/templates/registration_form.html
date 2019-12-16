@@ -1,5 +1,16 @@
 {% extends 'base.html' %}
 <title> {% block title %} Registration Page  {% endblock %} </title>
+    {% block li %} 
+    <li class="nav-item active">
+        <a class="nav-link" href={% url 'community:register' %}>Registration</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href={% url 'community:login' %}>Login</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link"  href={% url 'community:logout' %}>Logout</a>
+    </li>
+    {% endblock %}
 {% block body %}
 
 <div class = "container-fluid">
