@@ -20,6 +20,25 @@
           
         </h1>
         <h3>{{ post_type.desc }}</h3>
+        
+         <!-- object is community_header model. community_header is foreign key for post_type_header. So _set.all method retrieves post_types which is belong to spesific community_header.-->
+        {% for post in object.post_type_header_set.all %} 
+          <div class="card mb-4">         
+            {% comment %} <img class="card-img-top" src="#" alt="Card image cap"> {% endcomment %}
+            <div class="card-body">
+              <h2 class="card-title"> {{ post.name }} </h2>
+              <p class="card-text">{{ post.desc }} </p>
+              <a href=" {% url 'community:post_type_detail' post_type.id %} " class="btn btn-primary">Go! &rarr;</a>
+            </div>
+            <div class="card-footer text-muted">
+              Created by 
+              <a href="#"></a>
+            </div>
+          
+          </div>
+          {% endfor %}
+
+
         <!-- Pagination -->
         <ul class="pagination justify-content-center mb-4">
           <li class="page-item">
@@ -35,18 +54,6 @@
       <!-- Sidebar Widgets Column -->
       <div class="col-md-4">
 
-        <!-- Search Widget -->
-        <div class="card my-4">
-          <h5 class="card-header">Search</h5>
-          <div class="card-body">
-            <div class="input-group">
-              <input type="text" class="form-control" placeholder="Search for...">
-              <span class="input-group-btn">
-                <button class="btn btn-secondary" type="button">Go!</button>
-              </span>
-            </div>
-          </div>
-        </div>
 
         <!-- Categories Widget -->
         <div class="card my-4">

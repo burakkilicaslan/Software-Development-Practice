@@ -19,7 +19,7 @@
                             {% include 'form_template.html' %}
 
                             <div class="card">
-                              <h3 class="card-header text-center font-weight-bold text-uppercase py-4">Editable table</h3>
+                              <p class="card-header text-center font-weight-bold text-uppercase py-4">Additional Custom Label</p>
                               <div class="card-body">
                                 <div id="table" class="table-editable">
                                   <span class="table-add float-right mb-3 mr-2"><a href="#!" class="text-success">
@@ -37,7 +37,9 @@
 
                                       <tr class="hide" id = "newrow">
                                         {% comment %} <td> <input type="text" id="dt_fieldlabel" class="pt-3-half" name="fieldlabel" contenteditable="true"> </td> {% endcomment %}
-                                        <td class="pt-3-half" contenteditable="true" id = "textinfo"> </td>
+                                        <td class="pt-3-half" contenteditable="true" id = "textinfo"> 
+                                          <input class="md-form floatLabel_dt" type="text" data-toggle="toggle" data-style="ios"  id="requireinfo" name="fieldrequire">
+                                        </td>
                                         <td>
                                             <select class="mdb-select md-form floatLabel_dt" name="fieldtype" id="optioninfo" contenteditable="true">
                                                 <option value="" disabled selected>Choose your option</option>
@@ -52,12 +54,12 @@
                                             </select>
                                         </td>
                                         <td>
-                                            <input type="checkbox" data-toggle="toggle" data-style="ios"  id="requireinfo" name="fieldrequire">
+                                            <input class="md-form floatLabel_dt" type="checkbox" data-toggle="toggle" data-style="ios"  id="aaa" name="fieldrequire" onchange= "selectcheckbox(this.value)" value = "true" checked>
                                         </td>
 
                                         <td>
                                           <span class="table-remove"><button type="button"
-                                              class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
+                                              class="btn btn-danger btn-rounded btn-sm my-3">Remove</button></span>
                                         </td>
                                       </tr>
                                     </tbody>

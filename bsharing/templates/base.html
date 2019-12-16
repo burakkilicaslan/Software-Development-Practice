@@ -33,7 +33,7 @@
               <span class="navbar-toggler-icon"></span>
             </button>
           <div class="collapse navbar-collapse" id="navbarResponsive">
-              <form class = "form-inline col align-self-center lg" role = "search" method= "get" action = "#">
+             {% block form %} <form class = "form-inline col align-self-center lg" role = "search" method= "get" action = " "> {% endblock %}
                 <div class = "form-group">
                     <input type="text" class = "form-control" name = "q" value = "">
                     <button type = "submit" class = "btn btn-dark">Search</button>
@@ -41,11 +41,12 @@
             
               </form>
             <ul class="navbar-nav ml-auto">
-            <li class="nav-item active"> 
+            <li class="nav-item"> 
                 {% block a %}  <a class="nav-link" href=" #  "> {% endblock %}
                 {% block navname %}<span class="glyphicon glyphicon-plus" aria-hidden = "true"></span>&nbsp; Add Community {% endblock %}
                 </a>
             </li>
+            {% block li %}
             <li class="nav-item">
                 <a class="nav-link" href={% url 'community:register' %}>Registration</a>
             </li>
@@ -55,6 +56,7 @@
             <li class="nav-item">
                 <a class="nav-link"  href={% url 'community:logout' %}>Logout</a>
             </li>
+            {% endblock %}
             </ul>
 
           </div>
@@ -138,13 +140,14 @@ const $tableID = $('#table');
    $rows.each(function (a) {
      const $td = $(this).find('td');
      const h = {};
-     //console.log($td)
+     console.log($td)
 
      // Use the headers from earlier to name our hash keys
      headers.forEach((header, i) => {
        console.log(i);
        if (i === 0){
-        h[header] = $td.eq(i).text();
+        //h[header] = $td.eq(i).text();
+        h[header] = $rows[a].cells[0].children[0].value;
        }
        else if ( i === 1){
         //const fieldTypes = document.getElementById("optioninfo");
@@ -177,10 +180,65 @@ const $tableID = $('#table');
    console.log(fieldJson);
  });
 
+
+ $BTN1.on('click', () => {
+
+   const $rows = $tableID.find('tr:not(:hidden)');
+   const headers = [];
+   const data = [];
+   // Get the headers (add special header logic here)
+   $($rows.shift()).find('th:not(:empty)').each(function () {
+     headers.push($(this).text().toLowerCase());
+   });
+   // Turn all existing rows into a loopable array
+   $rows.each(function (a) {
+     const $td = $(this).find('td');
+     const h = {};
+     // Use the headers from earlier to name our hash keys
+     headers.forEach((header, i) => {
+       console.log(i);
+       if (i === 0){
+        h[header] = $td.eq(i).text();
+        //h[header] = $rows[a].cells[0].children[0].value;
+       }
+       else if ( i === 1){
+        //const fieldTypes = document.getElementById("optioninfo");
+        h[header] = $rows[a].cells[1].children[0].value;
+       }
+      else{
+      }
+     });
+
+     data.push(h);
+   });
+    //  const deneme = {
+
+    //title: document.getElementById('dt_fieldrequire').value,
+    //options: document.getElementById('denemee').val()
+ // }
+  //console.log(deneme);
+   // Output the result
+   //$EXPORT.text(JSON.stringify(data));
+    fieldJson = JSON.stringify(data);
+    $("#sendpost").val(fieldJson);
+   console.log(fieldJson);
+ });
+
 function selectedoptions() {
   var x = document.getElementById("optioninfo").value;
   document.getElementById("optioninfo").value = x;
 };
+function selectcheckbox(val){
+  if (val == 'true'){
+    document.getElementById("aaa").value = "false"
+
+  }
+  else{
+    document.getElementById("aaa").value = "true"
+
+  }
+  
+}
 
 var x = {{ data_fields|safe }}
 a = JSON.parse(x[0]['fields']['datafields'])
