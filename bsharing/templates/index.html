@@ -19,6 +19,7 @@
         {% if error_message %}
         <p><strong>{{ error_message }}</strong></p>
         {% endif %}
+        
           {% for community in all_communities %}
           <div class="card mb-4">         
             {% comment %} <img class="card-img-top" src="#" alt="Card image cap"> {% endcomment %}
@@ -29,6 +30,7 @@
               <a href=" {% url 'community:join' community.id %} " class=" btn btn-sm btn-primary">Join! &rarr;</a>
               <a href=" {% url 'community:community_detail' community.id %} " class=" btn btn-sm btn-primary">Go! &rarr;</a>
               <a href=" {% url 'community:community_update' community.id %} " class=" btn btn-sm btn-primary">Update! &rarr;</a>
+              
               
             </div>
             <div class="card-footer text-muted">

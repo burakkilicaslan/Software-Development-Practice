@@ -235,12 +235,27 @@ def join(request, community_header_id):
         community = get_object_or_404(community_header, pk=community_header_id)
         form = community_join_form(request.POST or None)
         community_j = form.save(commit=False)
-        #all_communities = community_header.objects.order_by("-published_date")
-        community_j.related_community = community
-        community_j.joined_user = request.user
-        community_j.save()
+        # print(community_join.objects.filter(joined_user = request.user))
+        # print(community_join.objects.filter(related_community = community_header_id))
+        # print(community_join.objects.filter(joined_user = request.user).filter(related_community = community_header_id))
+   
+        a = community_join.objects.filter(joined_user = request.user).filter(related_community = community_header_id)
+        print(a)
 
-        return render(request, 'index.html', {'all_communities': all_communities})
+        
+        if a:
+            print("yokki")
+            return render(request, 'index.html', {'all_communities': all_communities, 'error_message': "You already joined!"})     
+        else:
+
+            print("varki")
+            community_j.related_community = community
+            community_j.joined_user = request.user
+            community_j.save()
+
+            return render(request, 'index.html', {'all_communities': all_communities})    
+        #all_communities = community_header.objects.order_by("-published_date")
+
 
 
 
