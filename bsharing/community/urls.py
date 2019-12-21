@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from .views import Community_Listview, Community_DetailView, login, register_form
+from .views import Community_Listview, Community_DetailView, login, register_form, Post_Listview
 
 app_name = "community"
 
@@ -16,7 +16,8 @@ urlpatterns = [
     path('community/logout/', views.UserLogout, name= "logout"),
     path('community/update/<int:community_header_id>/', views.Community_Edit, name = "community_update"),
     path('community/search/', views.search, name="search"),
-    path('community/join/<int:community_header_id>/', views.join, name="join")
+    path('community/join/<int:community_header_id>/', views.join, name="join"),
+    path('community/posts/<int:post_id>', views.Post_Listview, name = 'posts_list')
     
     # path('<int:community_id>/', views.community, name = 'community')
 ]

@@ -34,20 +34,41 @@ def Community_Listview(request):
 class Community_DetailView(DetailView):
     model = community_header #Hangi objenin ya da model'in detaylarını görmek istediğimizi belirtiyoruz.
     template_name = "community_detail.html"
+    # def get_queryset(self):
+    #     communities = community_header.objects.order_by("-published_date")
+    #     return communities
     # Below method enables take post_types for selected communities. However there is simpliest wat to do that. In community detail html with "object.post_type_header_set.all".
-    # def get_context_data(self, **kwargs):
-    #     # Call the base implementation first to get a context
-    #     context = super(Community_DetailView, self).get_context_data(**kwargs)
-    #     context['post_type_list'] = post_type_header.objects.filter(post_community=self.object)
-    #     return context
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super(Community_DetailView, self).get_context_data(**kwargs)
+        context['post_type_list'] = post_type_header.objects.filter(post_community=self.object).order_by("-published_date")
+        return context
 
 class Post_Type_DetailView(DetailView):
     model = post_type_header
     context_object_name = "post_type"
     template_name = "post_type_detail.html"
+    
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super(Post_Type_DetailView, self).get_context_data(**kwargs)
+        context['post_list'] = post.objects.filter(post_posttype=self.object).order_by("-published_date")
+
+        return context
 
     def get_queryset(self):
         return post_type_header.objects.all()
+
+def Post_Listview(request, post_id):
+    post_list = post.objects.all()
+    tmpObj = serializers.serialize("json", post.objects.filter(pk=post_id).only('data_fields'))
+    a = json.loads(tmpObj)
+    data_fields = json.loads(a[0]["fields"]["data_fields"])
+    print(data_fields)
+    return render(request, 'post_detail.html', {'post_list': post_list, "data_fields": data_fields})
+
+
+
 
 def Community_Edit(request, community_header_id):
     community = get_object_or_404(community_header, pk=community_header_id)
@@ -101,6 +122,7 @@ def post_type_create(request, community_header_id):
         if form.is_valid():
             post_type = form.save(commit=False)
             post_type.post_community = community
+            post_type.post_type_user = request.user
             jsonfields = request.POST.get('fieldJson')
             post_type.datafields = jsonfields
             # for i in request.POST.get("table1", ""):
@@ -129,6 +151,7 @@ def post_create(request, post_type_id):
         if form.is_valid():
             post = form.save(commit=False)
             post.post_posttype = post_type 
+            post.post_user = request.user
             jsonfields = request.POST.get('fieldJsonpost')
             post.data_fields = jsonfields
             post.save()
@@ -241,14 +264,12 @@ def join(request, community_header_id):
    
         a = community_join.objects.filter(joined_user = request.user).filter(related_community = community_header_id)
         print(a)
-
-        
         if a:
-            print("yokki")
+            #print("yok")
             return render(request, 'index.html', {'all_communities': all_communities, 'error_message': "You already joined!"})     
         else:
 
-            print("varki")
+            #print("var")
             community_j.related_community = community
             community_j.joined_user = request.user
             community_j.save()

@@ -23,13 +23,15 @@
                               <h3 class="card-header text-center font-weight-bold text-uppercase py-4">Editable table</h3>
                               <div class="card-body">
                                 <div id="table" class="table-editable">
-                                  <span class="table-add float-right mb-3 mr-2"><a href="#!" class="text-success">
-                                  <i class="fas fa-plus fa-2x" aria-hidden="true"></i></a></span>
+                                  <span class="table-add float-right mb-3 mr-2">
+                                  <a href="#!" class="text-success"> 
+                                  {% comment %} <i class="fas fa-plus fa-2x" aria-hidden="true"></i> {% endcomment %}
+                                  </a></span>
                                   <table id="table" name ="table" class="table table-bordered table-responsive-md table-striped text-center">
                                     <thead>
                                       <tr>
-                                        <th class="text-center">Field Label</th>
-                                        <th class="text-center">Field Type</th>
+                                        <th class="text-center">FieldLabel</th>
+                                        <th class="text-center">FieldType</th>
                                         {% comment %} <th class="text-center">Is Required?</th> {% endcomment %}
                                         {% comment %} <th class="text-center">Remove</th> {% endcomment %}
                                       </tr>
@@ -75,7 +77,73 @@
 </div>
 
 
+{% endblock %}
 
+{% block script %}
+<script>
+const $tableID = $('#table');
+const $BTN1 = $('#btn1');
+
+ // A few jQuery helpers for exporting only
+ jQuery.fn.pop = [].pop;
+ jQuery.fn.shift = [].shift;
+
+ $BTN1.on('click', () => {
+
+   const $rows = $tableID.find('tr:not(:hidden)');
+   const headers = [];
+   const data = [];
+   // Get the headers (add special header logic here)
+   $($rows.shift()).find('th:not(:empty)').each(function () {
+     headers.push($(this).text().toLowerCase());
+   });
+   // Turn all existing rows into a loopable array
+   $rows.each(function (a) {
+     const $td = $(this).find('td');
+     const h = {};
+     // Use the headers from earlier to name our hash keys
+     headers.forEach((header, i) => {
+       console.log(i);
+       if (i === 0){
+        h[header] = $td.eq(i).text();
+        //h[header] = $rows[a].cells[0].children[0].value;
+       }
+       else if ( i === 1){
+        //const fieldTypes = document.getElementById("optioninfo");
+        h[header] = $rows[a].cells[1].children[0].value;
+       }
+      else{
+      }
+     });
+
+     data.push(h);
+   });
+
+    fieldJson1 = JSON.stringify(data);
+    $("#sendpost").val(fieldJson1);
+   console.log(fieldJson1);
+ });
+
+function selectedoptions() {
+  var x = document.getElementById("optioninfo").value;
+  document.getElementById("optioninfo").value = x;
+};
+function selectcheckbox(val){
+  if (val == 'true'){
+    document.getElementById("aaa").value = "false"
+
+  }
+  else{
+    document.getElementById("aaa").value = "true"
+
+  }
+  
+}
+{% comment %} 
+var x = {{ data_fields|safe }}
+a = JSON.parse(x[0]['fields']['datafields'])
+console.log(a); {% endcomment %}
+</script>
 
 {% endblock %}
 
