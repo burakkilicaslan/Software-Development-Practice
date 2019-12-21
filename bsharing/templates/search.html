@@ -23,12 +23,12 @@
             <div class="card-body">
               <h2 class="card-title"> {{ comm.name }} </h2>
               <p class="card-text">{{ comm.desc }} </p>
+              <a href=" {% url 'community:join' comm.id %} " class=" btn btn-sm btn-primary">Join! &rarr;</a>
               <a href=" {% url 'community:community_detail' comm.id %} " class=" btn btn-sm btn-primary">Go! &rarr;</a>
               <a href=" {% url 'community:community_update' comm.id %} " class=" btn btn-sm btn-primary">Update! &rarr;</a>
             </div>
             <div class="card-footer text-muted">
-              Created by 
-              <a href="#"></a>
+              Created by {{ comm.user }} // {{comm.published_date}}
             </div>
           
           </div>

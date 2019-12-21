@@ -82,7 +82,7 @@
     <!-- MDB core JavaScript -->
     <script type="text/javascript" src={% static "MDB/js/mdb.min.js"%}></script>
 
-
+{% block script %}
 <script>
 const $tableID = $('#table');
  const $BTN = $('#btn');
@@ -180,7 +180,7 @@ const $tableID = $('#table');
  });
 
 
- $BTN1.on('click', () => {
+ $btn1.on('click', () => {
 
    const $rows = $tableID.find('tr:not(:hidden)');
    const headers = [];
@@ -218,9 +218,9 @@ const $tableID = $('#table');
   //console.log(deneme);
    // Output the result
    //$EXPORT.text(JSON.stringify(data));
-    fieldJson = JSON.stringify(data);
-    $("#sendpost").val(fieldJson);
-   console.log(fieldJson);
+    fieldJson1 = JSON.stringify(data);
+    $("#sendpost").val(fieldJson1);
+   console.log(fieldJson1);
  });
 
 function selectedoptions() {
@@ -243,6 +243,8 @@ var x = {{ data_fields|safe }}
 a = JSON.parse(x[0]['fields']['datafields'])
 console.log(a);
 </script>
+
+{% endblock %}
 
 </body>
 
