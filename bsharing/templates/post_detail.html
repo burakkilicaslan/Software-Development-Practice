@@ -18,27 +18,19 @@
       <!-- Blog Entries Column -->
       <div class="col-md-8">
 
-        <h1 class="my-4"> {{ post_list.name }}
-          
-        </h1>
-        <h3>{{ post_list.desc }}</h3>
+        <h1 class="my-4"> Post Title: {{ post_list.name }} </h1>
+        <h3>Post Detail: {{ post_list.desc }}</h3>
         
          <!-- object is community_header model. community_header is foreign key for post_type_header. So _set.all method retrieves post_types which is belong to spesific community_header.-->
-        {% for data in data_fields %} 
-          <div class="card mb-4" style = "top: 150px">         
+        {% for data in data_fields %}    
             {% comment %} <img class="card-img-top" src="#" alt="Card image cap"> {% endcomment %}
-            <div class="card-body">
-              <h2 class="card-title"> {{ data.fieldlabel }} </h2>
-              <p class="card-text">{{ data.fieldtype }} </p>
+              <div>
+              <p class="card-title"> {{ data.fieldlabel }} : {{ data.fieldtype }} </p>
+              <p class="card-text"> </p>
               {% comment %} <a href=" {% url 'community:post_type_detail' post_type.id %} " class="btn btn-primary">Go! &rarr;</a> {% endcomment %}
             </div>
-            <div class="card-footer text-muted">
-              Created by 
               <a href="#"></a>
-            </div>
-          
-          </div>
-          {% endfor %}
+            {% endfor %}
 
 
         <!-- Pagination -->
