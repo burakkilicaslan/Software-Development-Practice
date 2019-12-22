@@ -9,6 +9,11 @@ class community_form(forms.ModelForm):
         model = community_header
         fields = ["name", "desc", "semantic_tag"]
 
+class wikidata_form(forms.ModelForm):
+    class Meta:
+        model = community_header
+        fields = []
+
 class post_type_create_form(forms.ModelForm):
     class Meta: 
         model = post_type_header

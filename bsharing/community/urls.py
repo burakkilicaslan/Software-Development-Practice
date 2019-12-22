@@ -18,7 +18,9 @@ urlpatterns = [
     path('community/search/', views.search, name="search"),
     path('community/join/<int:community_header_id>/', views.join, name="join"),
     path('community/posts/<int:post_id>', views.Post_Listview, name = 'posts_list'),
-    path('community/advanced_search/', views.advanced_search, name="advanced_search")
+    path('community/advanced_search/', views.advanced_search, name="advanced_search"),
+    path('community/wikitag/', views.AddSemanticTag, name="semantic_tag"),#Community Semantic Tag Trial
+
     
     # path('<int:community_id>/', views.community, name = 'community')
 ]
