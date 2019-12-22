@@ -11,13 +11,14 @@ from django.core import serializers
 from .serializers import post_type_headerSerializer
 from django.utils import timezone
 from django.db.models import Q
-
+import requests
 
 
 
 def Community_Listview(request):
     if not request.user.is_authenticated:
-        return render (request, 'index_visitor.html', {})
+        all_communities = community_header.objects.order_by("-published_date")
+        return render (request, 'index_visitor.html', {'all_communities': all_communities})
 
     else: 
         all_communities = community_header.objects.order_by("-published_date")
@@ -60,7 +61,7 @@ class Post_Type_DetailView(DetailView):
         return post_type_header.objects.all()
 
 def Post_Listview(request, post_id):
-    post_list = post.objects.all()
+    post_list = post.objects.get(pk = post_id)
     tmpObj = serializers.serialize("json", post.objects.filter(pk=post_id).only('data_fields'))
     a = json.loads(tmpObj)
     data_fields = json.loads(a[0]["fields"]["data_fields"])
@@ -105,7 +106,7 @@ def Community_Create(request):
                 community_header.user = request.user
                 community_header.published_date = timezone.now()
                 community_header.save()
-                return render ( request, "community_detail.html", {'community_header': community_header})
+                return render ( request, "wikidata.html", {'community_header': community_header})
             return render ( request, "community_form.html", {'community_header': community_header})
         else:
             form = community_form()
@@ -280,8 +281,6 @@ def advanced_search(request):
     else:
         return render(request, "advanced_search.html", {"message":message, "error": "There is no result related to your search"})
 
-    return render(request, "advanced_search.html", {"message":message})
-
 
 def join(request, community_header_id):
 
@@ -308,7 +307,34 @@ def join(request, community_header_id):
             return render(request, 'index.html', {'all_communities': all_communities, 'status': status})    
         #all_communities = community_header.objects.order_by("-published_date")
 
+def AddSemanticTag(request):
+    tag = [] #Create Empty List
+    if request.method == "POST":   
+        input_for_tag = request.POST.get("input_box", "Hatali Giris")
+        #-----------000-------------------000------------------- 
+        #Wikidata Query
+        API_ENDPOINT = "https://www.wikidata.org/w/api.php"
+        query = input_for_tag
+        params = {
+        'action': 'wbsearchentities',
+        'format': 'json',
+        'language': 'en',
+        'limit': '3',
+        'search': query
+        }
+        wiki_request = requests.get(API_ENDPOINT, params=params)
+        wiki_return = wiki_request.json()["search"] 
+        #-----------000-------------------000------------------- 
+        #Put Items Into A List For Render
+        for i in range(len(wiki_return)):
+            try:
+                tag.append(wiki_return[i]["description"])
+            except KeyError:
+                continue
+        
+        return render(request, "wikidata.html",{"tag":tag})
 
+    return render(request, "wikidata.html",{"tag":tag})
 
 
 
