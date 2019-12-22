@@ -249,6 +249,40 @@ def search(request):
         return render (request, 'search.html', {'communities': communities, 'post_types': post_types, 'posts': posts})
     return render (request, 'index.html', {'communities': communities})
 
+def advanced_search(request):
+    #Load all data 
+    communities  = community_header.objects.order_by("-published_date")
+    post_types  = post_type_header.objects.all() # order by creation date to be added
+    posts = post.objects.all()
+    message = "You can search only communities, post_types or posts in related field or You can search all of them in navigation search bar."
+
+    #Get items to be searched
+    query_community = request.GET.get('q_community')
+    query_posttypes = request.GET.get('q_posttypes')
+    query_posts = request.GET.get('q_posts')
+
+    #Query Them
+    if query_community:
+        communities = communities.filter(Q(name__icontains=query_community) | Q(desc__icontains = query_community) | Q(semantic_tag__icontains = query_community)).distinct()
+
+        return render(request, "advanced_search.html", {"communities":communities})
+
+    elif query_community:
+        post_types = post_types.filter(Q(name__icontains = query_posttypes) | Q(desc__icontains = query_posttypes) | Q(semantic_tag__icontains = query_posttypes)).distinct()
+
+        return render(request, "advanced_search.html", {"post_types":post_types})
+
+    elif query_posts:
+        posts = posts.filter(Q(name__icontains=query_posts) | Q(desc__icontains=query_posts) | Q(semantic_tag__icontains = query_posts)).distinct()
+
+        return render(request, "advanced_search.html", {"post":posts})
+    
+    else:
+        return render(request, "advanced_search.html", {"message":message, "error": "There is no result related to your search"})
+
+    return render(request, "advanced_search.html", {"message":message})
+
+
 def join(request, community_header_id):
 
     if not request.user.is_authenticated:
@@ -258,23 +292,20 @@ def join(request, community_header_id):
         community = get_object_or_404(community_header, pk=community_header_id)
         form = community_join_form(request.POST or None)
         community_j = form.save(commit=False)
-        # print(community_join.objects.filter(joined_user = request.user))
-        # print(community_join.objects.filter(related_community = community_header_id))
-        # print(community_join.objects.filter(joined_user = request.user).filter(related_community = community_header_id))
-   
-        a = community_join.objects.filter(joined_user = request.user).filter(related_community = community_header_id)
-        print(a)
-        if a:
+
+        #control whether user join already or not. 
+        control = community_join.objects.filter(joined_user = request.user).filter(related_community = community_header_id)
+        print(control)
+        if control:
             #print("yok")
             return render(request, 'index.html', {'all_communities': all_communities, 'error_message': "You already joined!"})     
         else:
-
             #print("var")
             community_j.related_community = community
             community_j.joined_user = request.user
             community_j.save()
-
-            return render(request, 'index.html', {'all_communities': all_communities})    
+            status = "Success, You just joined!"
+            return render(request, 'index.html', {'all_communities': all_communities, 'status': status})    
         #all_communities = community_header.objects.order_by("-published_date")
 
 

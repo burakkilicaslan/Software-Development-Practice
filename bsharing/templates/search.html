@@ -38,9 +38,9 @@
         <h3 class="my-4"> There is no community related to your search </h3>
         {% endif %}
 
-
-
         <h1 class="my-4"> Results for Post-Types </h1>
+
+        {% if post_types %}
         {% for pt in post_types %} 
           <div class="card mb-4">         
             {% comment %} <img class="card-img-top" src="#" alt="Card image cap"> {% endcomment %}
@@ -56,9 +56,13 @@
           
           </div>
         {% endfor %}
+        {% else %}
+        <h3 class="my-4"> There is no post-types related to your search </h3>
+        {% endif %}
 
 
         <h1 class="my-4"> Results for Posts </h1>
+        {% if post_types %}
         {% for post in posts %} 
           <div class="card mb-4">         
             {% comment %} <img class="card-img-top" src="#" alt="Card image cap"> {% endcomment %}
@@ -74,47 +78,15 @@
           
           </div>
         {% endfor %}
+        {% else %}
+        <h3 class="my-4"> There is no posts related to your search </h3>
+        {% endif %}
 
       </div>
 
       <!-- Sidebar Widgets Column -->
       <div class="col-md-4">
 
-
-        <!-- Categories Widget -->
-        <div class="card my-4">
-          <h5 class="card-header">Categories</h5>
-          <div class="card-body">
-            <div class="row">
-              <div class="col-lg-6">
-                <ul class="list-unstyled mb-0">
-                  <li>
-                    <a href="#">Web Design</a>
-                  </li>
-                  <li>
-                    <a href="#">HTML</a>
-                  </li>
-                  <li>
-                    <a href="#">Freebies</a>
-                  </li>
-                </ul>
-              </div>
-              <div class="col-lg-6">
-                <ul class="list-unstyled mb-0">
-                  <li>
-                    <a href="#">JavaScript</a>
-                  </li>
-                  <li>
-                    <a href="#">CSS</a>
-                  </li>
-                  <li>
-                    <a href="#">Tutorials</a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
 
         <!-- Side Widget -->
         <div class="card my-4">

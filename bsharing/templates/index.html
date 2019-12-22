@@ -19,6 +19,9 @@
         {% if error_message %}
         <p><strong>{{ error_message }}</strong></p>
         {% endif %}
+        {% if status %}
+        <p> <strong  style = "color:green" >{{ status }}</strong></p>
+        {% endif %}
         
           {% for community in all_communities %}
           <div class="card mb-4">         
