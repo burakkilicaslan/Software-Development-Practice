@@ -33,6 +33,7 @@ def Community_Listview(request):
             
 
 class Community_DetailView(DetailView):
+    
     model = community_header #Hangi objenin ya da model'in detaylarını görmek istediğimizi belirtiyoruz.
     template_name = "community_detail.html"
     # def get_queryset(self):
@@ -144,19 +145,20 @@ def post_type_create(request, community_header_id):
 
 def post_create(request, post_type_id):
     post_type = get_object_or_404(post_type_header, pk=post_type_id)
+    post_list = post.objects.filter(post_posttype=post_type_id).order_by("-published_date")
     tmpObj = serializers.serialize("json", post_type_header.objects.filter(pk=post_type_id).only('datafields'))
     a = json.loads(tmpObj)
     data_fields = json.loads(a[0]["fields"]["datafields"])
     if request.method == 'POST':
         form = post_create_form(request.POST)
         if form.is_valid():
-            post = form.save(commit=False)
-            post.post_posttype = post_type 
-            post.post_user = request.user
+            posts = form.save(commit=False)
+            posts.post_posttype = post_type 
+            posts.post_user = request.user
             jsonfields = request.POST.get('fieldJsonpost')
-            post.data_fields = jsonfields
-            post.save()
-            return render(request, 'post_type_detail.html', {'post_type': post_type})
+            posts.data_fields = jsonfields
+            posts.save()
+            return render(request, 'post_type_detail.html', {'post_type': post_type, "post_list": post_list})
         return render(request, 'post_form.html', {'form': form})
     else:
         form = post_create_form()
@@ -255,7 +257,6 @@ def advanced_search(request):
     communities  = community_header.objects.order_by("-published_date")
     post_types  = post_type_header.objects.all() # order by creation date to be added
     posts = post.objects.all()
-    message = "You can search only communities, post_types or posts in related field or You can search all of them in navigation search bar."
 
     #Get items to be searched
     query_community = request.GET.get('q_community')
@@ -266,20 +267,19 @@ def advanced_search(request):
     if query_community:
         communities = communities.filter(Q(name__icontains=query_community) | Q(desc__icontains = query_community) | Q(semantic_tag__icontains = query_community)).distinct()
 
-        return render(request, "advanced_search.html", {"communities":communities})
+        return render(request, "advanced_search.html", {"communities":communities, "error1": "There is no community related to your search"})
 
-    elif query_community:
+    if query_posttypes:
         post_types = post_types.filter(Q(name__icontains = query_posttypes) | Q(desc__icontains = query_posttypes) | Q(semantic_tag__icontains = query_posttypes)).distinct()
 
-        return render(request, "advanced_search.html", {"post_types":post_types})
+        return render(request, "advanced_search.html", {"post_types":post_types, "error2": "There is no post_type related to your search"})
 
-    elif query_posts:
+    if query_posts:
         posts = posts.filter(Q(name__icontains=query_posts) | Q(desc__icontains=query_posts) | Q(semantic_tag__icontains = query_posts)).distinct()
 
-        return render(request, "advanced_search.html", {"post":posts})
+        return render(request, "advanced_search.html", {"post":posts, "error3": "There is no post related to your search"})
     
-    else:
-        return render(request, "advanced_search.html", {"message":message, "error": "There is no result related to your search"})
+    return render(request, "advanced_search.html", {})
 
 
 def join(request, community_header_id):

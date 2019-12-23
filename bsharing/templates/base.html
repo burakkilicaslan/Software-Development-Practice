@@ -32,9 +32,9 @@
               <span class="navbar-toggler-icon"></span>
             </button>
           <div class="collapse navbar-collapse" id="navbarResponsive">
-             {% block form %} <form class = "form-inline col align-self-center lg" role = "search" method= "get" action = " {% url 'community:search' %} "> {% endblock %}
+             {% block form %} <form class = "form-inline col align-self-center lg" role = "search" method= "get"action = " {% url 'community:search' %} "> {% endblock %}
                 <div class = "form-group">
-                    <input type="text" class = "form-control" name = "q" value = "">
+                    <input type="text" class = "form-control" name = "q" value = ""  placeholder="Search in Bsharing" >
                     <button type = "submit" class = "btn btn-sm btn-primary">Search</button>
                 </div>
             

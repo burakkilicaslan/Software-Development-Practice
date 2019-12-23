@@ -9,6 +9,8 @@
 
       <!-- Blog Entries Column -->
              <div class="col-md-8" style = "top:30px">
+                <h3>Advanced Search</h3>
+                <h5 class="my-4"> You can search only communities, post_types or posts in related field or <br> <br> You can search all of them in navigation search bar. </h5>
                 <form >
                     <div  class="form-group" >
                         <input class="form-control form-control-sm mr-3 w-75" type="text" name="q_community" id="q_community" placeholder="Search for only Communities" aria-label="Search" >
@@ -27,9 +29,7 @@
                         <input type="submit" class="btn btn-sm btn-primary"></button>
                     </div>
                 </form>
-                {% if message %}
-                <h3 class="my-4"> You can search only communities, post_types or posts in related field or <br> You can search all of them in navigation search bar. </h3>
-                {% endif %}
+
                 {% if communities %}
                 <h1 class="my-4"> Results for Communities </h1>
 
@@ -50,7 +50,12 @@
                 </div>
                 {% endfor %}
 
-                {% elif post_types%}
+                {% else %}
+                <p style = "color:red"> {{error1}} </p> 
+                {% endif %}
+
+
+                {% if post_types%}
 
                 <h1 class="my-4"> Results for Post-Types </h1>
 
@@ -69,8 +74,11 @@
                 
                 </div>
                 {% endfor %}
+                {% else %}
+                <p style = "color:red"> {{error2}} </p> 
+                {% endif %}
 
-                {% elif post%}
+                {% if post%}
                 <h1 class="my-4"> Results for Posts </h1>
                 {% for post in posts %} 
                 <div class="card mb-4">         
@@ -88,7 +96,7 @@
                 </div>
                 {% endfor %}
                 {% else %}
-                {{ error}}
+                <p style = "color:red"> {{error3}} </p> 
                 {% endif %}
 
 
@@ -99,12 +107,13 @@
 
 
                 <!-- Side Widget -->
-                <div class="card my-4">
-                <h5 class="card-header">Side Widget</h5>
-                <div class="card-body">
-                    You can put anything you want inside of these side widgets. They are easy to use, and feature the new Bootstrap 4 card containers!
-                </div>
-                </div>
+                <div class="card my-4" style = "top:100px">
+                    <h5 class="card-header">ABOUT BSHARING</h5>
+                     <div class="card-body">
+                            Welcome our sharing platform. <br> This platform provides communication, network and knowledge. You can join communities and post under subcommunities or you can create communities and specify post types if there is no commmunity matching your interestings.
+                            <br> <br> We appreciate to see you in here. <br> Keep Enjoy ! 
+                    </div>
+                </div> 
 
             </div>
 

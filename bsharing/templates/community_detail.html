@@ -24,11 +24,11 @@
         {% comment %} {% for post_type in object.post_type_header_set.all %}  {% endcomment %}
         {% for post_type in post_type_list %} 
           <div class="card mb-4">         
-            {% comment %} <img class="card-img-top" src="#" alt="Card image cap"> {% endcomment %}
             <div class="card-body">
-              <h2 class="card-title"> {{ post_type.name }} </h2>
-              <p class="card-text">{{ post_type.desc }} </p>
-              <a href=" {% url 'community:post_type_detail' post_type.id %} " class="btn btn-primary">Go! &rarr;</a>
+              <h2 class="card-title"> {{ post_type.name }} </h2> <br>
+              <h5 class="card-subtitle">{{ post_type.desc }} </h5><br>
+              <p class "card-text"> tags: #{{ post_type.semantic_tag }} </p>
+              <a href=" {% url 'community:post_type_detail' post_type.id %} " class="btn btn-sm btn-primary">Go! &rarr;</a>
             </div>
             <div class="card-footer text-muted">
               Created by <strong> {{post_type.post_type_user}} </strong>  &nbsp;&nbsp;&nbsp;&nbsp; {{post_type.published_date}} 

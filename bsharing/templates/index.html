@@ -30,9 +30,9 @@
               <h2 class="card-title"> {{ community.name }} </h2> <br>
               <h5 class="card-subtitle">{{ community.desc }} </h5><br>
               <p class "card-text"> tags: #{{ community.semantic_tag }} </p>
-              <a href=" {% url 'community:join' community.id %} " class=" btn btn-sm btn-primary">Join! &rarr;</a>
               <a href=" {% url 'community:community_detail' community.id %} " class=" btn btn-sm btn-primary">Go! &rarr;</a>
-              <a href=" {% url 'community:community_update' community.id %} " class=" btn btn-sm btn-primary">Update! &rarr;</a>
+              <a href=" {% url 'community:join' community.id %} " class=" btn btn-sm btn-primary">Join!</a>
+              <a href=" {% url 'community:community_update' community.id %} " class=" btn btn-sm btn-primary">Update!</a>
               
               
             </div>
