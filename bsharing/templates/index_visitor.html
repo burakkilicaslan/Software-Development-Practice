@@ -15,10 +15,29 @@
         </h1>
         <h2 class="my-4"> Welcome! </h2>
 
-        <p class="my-4"> If you have not account, register!</p>
-        <p class="my-4"> If you have an account, login!</p>
+        <h4 class="my-4"> You can keep enjoy in Bsharing with, <a href= {% url 'community:register'%}>  register!</a> </h4>
+        <h4 class="my-4"> Already member of our family? <a href= {% url 'community:login'%}>  login!</a> </h4>
 
-
+          {% for community in all_communities %}
+          <div class="card mb-4">         
+            {% comment %} <img class="card-img-top" src="#" alt="Card image cap"> {% endcomment %}
+            <div class="card-body">
+              <h2 class="card-title"> {{ community.name }} </h2> <br>
+              <h5 class="card-subtitle">{{ community.desc }} </h5><br>
+              <p class "card-text"> tags: #{{ community.semantic_tag }} </p>
+              {% comment %} <a href=" {% url 'community:join' community.id %} " class=" btn btn-sm btn-primary">Join! &rarr;</a>
+              <a href=" {% url 'community:community_detail' community.id %} " class=" btn btn-sm btn-primary">Go! &rarr;</a>
+              <a href=" {% url 'community:community_update' community.id %} " class=" btn btn-sm btn-primary">Update! &rarr;</a> {% endcomment %}
+              
+              
+            </div>
+            <div class="card-footer text-muted">
+              Created by <strong> {{ community.user }} </strong>  &nbsp;&nbsp;&nbsp;&nbsp; {{community.published_date}} 
+              <a href="#"></a>
+            </div>
+          
+          </div>
+          {% endfor %}
 
 
 
@@ -41,39 +60,13 @@
         </div> {% endcomment %}
 
         <!-- Categories Widget -->
-        <div class="card my-4">
-          <h5 class="card-header">Categories</h5>
+        <div class="card my-4" style = "top:230px">
+          <h5 class="card-header">ABOUT BSHARING</h5>
           <div class="card-body">
-            <div class="row">
-              <div class="col-lg-6">
-                <ul class="list-unstyled mb-0">
-                  <li>
-                    <a href="#">Web Design</a>
-                  </li>
-                  <li>
-                    <a href="#">HTML</a>
-                  </li>
-                  <li>
-                    <a href="#">Freebies</a>
-                  </li>
-                </ul>
-              </div>
-              <div class="col-lg-6">
-                <ul class="list-unstyled mb-0">
-                  <li>
-                    <a href="#">JavaScript</a>
-                  </li>
-                  <li>
-                    <a href="#">CSS</a>
-                  </li>
-                  <li>
-                    <a href="#">Tutorials</a>
-                  </li>
-                </ul>
-              </div>
-            </div>
+          Welcome our sharing platform. <br> This platform provides communication, network and knowledge. You can join communities and post under subcommunities or you can create communities and specify post types if there is no commmunity matching your interestings.
+          <br> <br> We appreciate to see you in here. <br> Keep Enjoy ! 
           </div>
-        </div>
+        </div> 
 
         {% comment %} <!-- Side Widget -->
         <div class="card my-4">

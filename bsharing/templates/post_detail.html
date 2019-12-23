@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+ {% block a %}  <a class="nav-link" href=" "> {% endblock %} 
+
+{% comment %} {% block href %} {% url 'community:post_type_create' %} {% endblock %} {% endcomment %}
+
+{% block navname %} 
+{% comment %} <span class="glyphicon glyphicon-plus" aria-hidden = "true"></span>&nbsp; Add Post_Type  {% endcomment %}
+{% endblock %}
+
+
+{% block body %}
+  <!-- Page Content -->
+  <div class="container">
+
+    <div class="row">
+
+      <!-- Blog Entries Column -->
+      <div class="col-md-8" style ="top:150px">
+
+        <div class="jumbotron" >
+            <h2 class="h1-responsive">Post Title:{{ post_list.name }}</h2>
+            <p class="lead"> Post Detail: {{ post_list.desc }} </p>
+            <hr class="my-2">
+        {% for data in data_fields %}    
+            {% comment %} <img class="card-img-top" src="#" alt="Card image cap"> {% endcomment %}
+              <div>
+              <p class="card-title"> {{ data.fieldlabel }} : {{ data.fieldtype }} </p>
+              <p class="card-text"> </p>
+              {% comment %} <a href=" {% url 'community:post_type_detail' post_type.id %} " class="btn btn-primary">Go! &rarr;</a> {% endcomment %}
+            </div>
+            {% endfor %}
+        </div>
+
+        
+         <!-- object is community_header model. community_header is foreign key for post_type_header. So _set.all method retrieves post_types which is belong to spesific community_header.-->
+
+
+
+    </div>
+    <!-- /.row -->
+
+  </div>
+  <!-- /.container -->
+
+{% endblock %}

@@ -45,10 +45,13 @@ class define_post_types(models.Model):
 
 
 class post_type_header(models.Model):
+    
+    post_type_user = models.ForeignKey(User, on_delete=models.CASCADE)
     post_community = models.ForeignKey(community_header, default="", on_delete=models.CASCADE)
     name = models.CharField(max_length = 100)
     desc = models.TextField()
     semantic_tag = models.CharField(max_length = 150)
+    published_date = models.DateTimeField(auto_now_add=True, blank=True, null = True)
     datafields = JSONField(default = "")
     #fields_type = JSONField(default = "")
 
@@ -60,10 +63,13 @@ class post_type_header(models.Model):
 
 
 class post(models.Model):
+    post_user = models.ForeignKey(User, on_delete=models.CASCADE)
     post_posttype = models.ForeignKey(post_type_header, default="", on_delete=models.CASCADE)
     name = models.CharField(max_length= 100)
     desc = models.TextField()
     semantic_tag = models.CharField(max_length = 150)
+    published_date = models.DateTimeField(auto_now_add=True, blank=True, null = True)
+
     data_fields = JSONField(default="")
 
     def get_absolute_url(self):

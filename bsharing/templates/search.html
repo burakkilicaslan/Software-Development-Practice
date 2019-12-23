@@ -23,12 +23,12 @@
             <div class="card-body">
               <h2 class="card-title"> {{ comm.name }} </h2>
               <p class="card-text">{{ comm.desc }} </p>
+              <a href=" {% url 'community:join' comm.id %} " class=" btn btn-sm btn-primary">Join! &rarr;</a>
               <a href=" {% url 'community:community_detail' comm.id %} " class=" btn btn-sm btn-primary">Go! &rarr;</a>
               <a href=" {% url 'community:community_update' comm.id %} " class=" btn btn-sm btn-primary">Update! &rarr;</a>
             </div>
             <div class="card-footer text-muted">
-              Created by 
-              <a href="#"></a>
+              Created by {{ comm.user }} // {{comm.published_date}}
             </div>
           
           </div>
@@ -38,9 +38,9 @@
         <h3 class="my-4"> There is no community related to your search </h3>
         {% endif %}
 
-
-
         <h1 class="my-4"> Results for Post-Types </h1>
+
+        {% if post_types %}
         {% for pt in post_types %} 
           <div class="card mb-4">         
             {% comment %} <img class="card-img-top" src="#" alt="Card image cap"> {% endcomment %}
@@ -56,9 +56,13 @@
           
           </div>
         {% endfor %}
+        {% else %}
+        <h3 class="my-4"> There is no post-types related to your search </h3>
+        {% endif %}
 
 
         <h1 class="my-4"> Results for Posts </h1>
+        {% if post_types %}
         {% for post in posts %} 
           <div class="card mb-4">         
             {% comment %} <img class="card-img-top" src="#" alt="Card image cap"> {% endcomment %}
@@ -74,6 +78,9 @@
           
           </div>
         {% endfor %}
+        {% else %}
+        <h3 class="my-4"> There is no posts related to your search </h3>
+        {% endif %}
 
       </div>
 
@@ -81,48 +88,15 @@
       <div class="col-md-4">
 
 
-        <!-- Categories Widget -->
-        <div class="card my-4">
-          <h5 class="card-header">Categories</h5>
-          <div class="card-body">
-            <div class="row">
-              <div class="col-lg-6">
-                <ul class="list-unstyled mb-0">
-                  <li>
-                    <a href="#">Web Design</a>
-                  </li>
-                  <li>
-                    <a href="#">HTML</a>
-                  </li>
-                  <li>
-                    <a href="#">Freebies</a>
-                  </li>
-                </ul>
-              </div>
-              <div class="col-lg-6">
-                <ul class="list-unstyled mb-0">
-                  <li>
-                    <a href="#">JavaScript</a>
-                  </li>
-                  <li>
-                    <a href="#">CSS</a>
-                  </li>
-                  <li>
-                    <a href="#">Tutorials</a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-
         <!-- Side Widget -->
-        <div class="card my-4">
-          <h5 class="card-header">Side Widget</h5>
-          <div class="card-body">
-            You can put anything you want inside of these side widgets. They are easy to use, and feature the new Bootstrap 4 card containers!
-          </div>
-        </div>
+                <!-- Side Widget -->
+                <div class="card my-4" style = "top:70px">
+                    <h5 class="card-header">ABOUT BSHARING</h5>
+                     <div class="card-body">
+                            Welcome our sharing platform. <br> This platform provides communication, network and knowledge. You can join communities and post under subcommunities or you can create communities and specify post types if there is no commmunity matching your interestings.
+                            <br> <br> We appreciate to see you in here. <br> Keep Enjoy ! 
+                    </div>
+                </div> 
 
       </div>
 

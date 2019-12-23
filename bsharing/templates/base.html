@@ -25,36 +25,54 @@
 </head>
 <body>
       <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark primary-color fixed-top">
         <div class="container">
             <a class="navbar-brand" href={% url 'community:index' %}>Bsharing</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
           <div class="collapse navbar-collapse" id="navbarResponsive">
-             {% block form %} <form class = "form-inline col align-self-center lg" role = "search" method= "get" action = " "> {% endblock %}
+             {% block form %} <form class = "form-inline col align-self-center lg" role = "search" method= "get"action = " {% url 'community:search' %} "> {% endblock %}
                 <div class = "form-group">
-                    <input type="text" class = "form-control" name = "q" value = "">
-                    <button type = "submit" class = "btn btn-dark">Search</button>
+                    <input type="text" class = "form-control" name = "q" value = ""  placeholder="Search in Bsharing" >
+                    <button type = "submit" class = "btn btn-sm btn-primary">Search</button>
                 </div>
             
               </form>
+              
             <ul class="navbar-nav ml-auto">
+            <li class="nav-item"> 
+                <a class="nav-link" href={% url 'community:advanced_search' %}>
+                <span class="glyphicon glyphicon-plus" aria-hidden = "true"></span>&nbsp; Advanced Search
+                </a>
+            </li>
             <li class="nav-item"> 
                 {% block a %}  <a class="nav-link" href=" #  "> {% endblock %}
                 {% block navname %}<span class="glyphicon glyphicon-plus" aria-hidden = "true"></span>&nbsp; Add Community {% endblock %}
                 </a>
             </li>
             {% block li %}
-            <li class="nav-item">
-                <a class="nav-link" href={% url 'community:register' %}>Registration</a>
+
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Profile</a>
+                <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
+                  
+                  {% if user %} 
+                  <a class="dropdown-item" href="">Profile</a>        
+                  {% else %}
+                  <a class="dropdown-item" href={% url 'community:register' %}>Registration</a>                 
+                  {% endif %}
+                  <a class="dropdown-item" href={% url 'community:login' %}>Login</a>
+                  <a class="dropdown-item"  href={% url 'community:logout' %}>Logout</a>
+                </div>
+            </li>
+            {% comment %} <li class="nav-item">
+
             </li>
             <li class="nav-item">
-                <a class="nav-link" href={% url 'community:login' %}>Login</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link"  href={% url 'community:logout' %}>Logout</a>
-            </li>
+            </li> {% endcomment %}
             {% endblock %}
             </ul>
 
@@ -82,7 +100,7 @@
     <!-- MDB core JavaScript -->
     <script type="text/javascript" src={% static "MDB/js/mdb.min.js"%}></script>
 
-
+{% block script %}
 <script>
 const $tableID = $('#table');
  const $BTN = $('#btn');
@@ -178,51 +196,6 @@ const $tableID = $('#table');
     $("#send").val(fieldJson);
    console.log(fieldJson);
  });
-
-
- $BTN1.on('click', () => {
-
-   const $rows = $tableID.find('tr:not(:hidden)');
-   const headers = [];
-   const data = [];
-   // Get the headers (add special header logic here)
-   $($rows.shift()).find('th:not(:empty)').each(function () {
-     headers.push($(this).text().toLowerCase());
-   });
-   // Turn all existing rows into a loopable array
-   $rows.each(function (a) {
-     const $td = $(this).find('td');
-     const h = {};
-     // Use the headers from earlier to name our hash keys
-     headers.forEach((header, i) => {
-       console.log(i);
-       if (i === 0){
-        h[header] = $td.eq(i).text();
-        //h[header] = $rows[a].cells[0].children[0].value;
-       }
-       else if ( i === 1){
-        //const fieldTypes = document.getElementById("optioninfo");
-        h[header] = $rows[a].cells[1].children[0].value;
-       }
-      else{
-      }
-     });
-
-     data.push(h);
-   });
-    //  const deneme = {
-
-    //title: document.getElementById('dt_fieldrequire').value,
-    //options: document.getElementById('denemee').val()
- // }
-  //console.log(deneme);
-   // Output the result
-   //$EXPORT.text(JSON.stringify(data));
-    fieldJson = JSON.stringify(data);
-    $("#sendpost").val(fieldJson);
-   console.log(fieldJson);
- });
-
 function selectedoptions() {
   var x = document.getElementById("optioninfo").value;
   document.getElementById("optioninfo").value = x;
@@ -230,21 +203,15 @@ function selectedoptions() {
 function selectcheckbox(val){
   if (val == 'true'){
     document.getElementById("aaa").value = "false"
-
   }
   else{
     document.getElementById("aaa").value = "true"
-
-  }
-  
+  } 
 }
-
 var x = {{ data_fields|safe }}
 a = JSON.parse(x[0]['fields']['datafields'])
 console.log(a);
 </script>
-
+{% endblock %}
 </body>
-
-
 </html>

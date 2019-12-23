@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+
+{% block body %}
+  <!-- Page Content -->
+
+<div class="container">
+
+    <div class="row">
+
+      <!-- Blog Entries Column -->
+             <div class="col-md-8" style = "top:30px">
+                <h3>Advanced Search</h3>
+                <h5 class="my-4"> You can search only communities, post_types or posts in related field or <br> <br> You can search all of them in navigation search bar. </h5>
+                <form >
+                    <div  class="form-group" >
+                        <input class="form-control form-control-sm mr-3 w-75" type="text" name="q_community" id="q_community" placeholder="Search for only Communities" aria-label="Search" >
+                        <input type="submit" class="btn btn-sm btn-primary"></button>
+                    </div>
+                </form >
+                <form >
+                    <div  class="form-group" >
+                        <input class="form-control form-control-sm mr-3 w-75" type="text" name="q_posttypes" id="q_posttypes" placeholder="Search for only Post_Types" aria-label="Search" >
+                        <input type="submit" class="btn btn-sm btn-primary"></button>
+                    </div>
+                </form >
+                <form >
+                    <div  class="form-group" >
+                        <input class="form-control form-control-sm mr-3 w-75" type="text" name="q_posts" id="q_posts" placeholder="Search for only Posts" aria-label="Search" >
+                        <input type="submit" class="btn btn-sm btn-primary"></button>
+                    </div>
+                </form>
+
+                {% if communities %}
+                <h1 class="my-4"> Results for Communities </h1>
+
+                {% for comm in communities %} 
+                <div class="card mb-4">         
+                    {% comment %} <img class="card-img-top" src="#" alt="Card image cap"> {% endcomment %}
+                    <div class="card-body">
+                    <h2 class="card-title"> {{ comm.name }} </h2>
+                    <p class="card-text">{{ comm.desc }} </p>
+                    <a href=" {% url 'community:join' comm.id %} " class=" btn btn-sm btn-primary">Join! &rarr;</a>
+                    <a href=" {% url 'community:community_detail' comm.id %} " class=" btn btn-sm btn-primary">Go! &rarr;</a>
+                    <a href=" {% url 'community:community_update' comm.id %} " class=" btn btn-sm btn-primary">Update! &rarr;</a>
+                    </div>
+                    <div class="card-footer text-muted">
+                    Created by {{ comm.user }} // {{comm.published_date}}
+                    </div>
+                
+                </div>
+                {% endfor %}
+
+                {% else %}
+                <p style = "color:red"> {{error1}} </p> 
+                {% endif %}
+
+
+                {% if post_types%}
+
+                <h1 class="my-4"> Results for Post-Types </h1>
+
+                {% for pt in post_types %} 
+                <div class="card mb-4">         
+                    {% comment %} <img class="card-img-top" src="#" alt="Card image cap"> {% endcomment %}
+                    <div class="card-body">
+                    <h2 class="card-title"> {{ pt.name }} </h2>
+                    <p class="card-text">{{ pt.desc }} </p>
+                    <a href=" {% url 'community:post_type_detail' pt.id %} " class="btn btn-primary">Go! &rarr;</a>
+                    </div>
+                    <div class="card-footer text-muted">
+                    Created by 
+                    <a href="#"></a>
+                    </div>
+                
+                </div>
+                {% endfor %}
+                {% else %}
+                <p style = "color:red"> {{error2}} </p> 
+                {% endif %}
+
+                {% if post%}
+                <h1 class="my-4"> Results for Posts </h1>
+                {% for post in posts %} 
+                <div class="card mb-4">         
+                    {% comment %} <img class="card-img-top" src="#" alt="Card image cap"> {% endcomment %}
+                    <div class="card-body">
+                    <h2 class="card-title"> {{ post.name }} </h2>
+                    <p class="card-text">{{ post.desc }} </p>
+                    {% comment %} <a href=" {% url 'community:post_type_detail' pt.id %} " class="btn btn-primary">Go! &rarr;</a> {% endcomment %}
+                    </div>
+                    <div class="card-footer text-muted">
+                    Created by 
+                    <a href="#"></a>
+                    </div>
+                
+                </div>
+                {% endfor %}
+                {% else %}
+                <p style = "color:red"> {{error3}} </p> 
+                {% endif %}
+
+
+             </div>
+
+      <!-- Sidebar Widgets Column -->
+            <div class="col-md-4">
+
+
+                <!-- Side Widget -->
+                <div class="card my-4" style = "top:100px">
+                    <h5 class="card-header">ABOUT BSHARING</h5>
+                     <div class="card-body">
+                            Welcome our sharing platform. <br> This platform provides communication, network and knowledge. You can join communities and post under subcommunities or you can create communities and specify post types if there is no commmunity matching your interestings.
+                            <br> <br> We appreciate to see you in here. <br> Keep Enjoy ! 
+                    </div>
+                </div> 
+
+            </div>
+
+    </div>
+    <!-- /.row -->
+
+</div>
+  <!-- /.container -->
+
+{% endblock %}
