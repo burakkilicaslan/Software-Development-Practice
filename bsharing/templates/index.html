@@ -15,7 +15,7 @@
         <h1 class="my-4">Bsharing
           <small>Community Share Platform</small>
         </h1>
-        <h2 class="my-4"> Welcome {{ user.username }}  </h2>
+        <h2 class="my-4"> Welcome <strong> {{ user.username }} </strong>   </h2>
         {% if error_message %}
         <p><strong>{{ error_message }}</strong></p>
         {% endif %}
@@ -28,7 +28,7 @@
             {% comment %} <img class="card-img-top" src="#" alt="Card image cap"> {% endcomment %}
             <div class="card-body">
               <h2 class="card-title"> {{ community.name }} </h2> <br>
-              <h5 class="card-subtitle">{{ community.desc }} </h5><br>
+              <h6 class="card-subtitle">{{ community.desc }} </h6><br>
               <p class "card-text"> tags: #{{ community.semantic_tag }} </p>
               <a href=" {% url 'community:community_detail' community.id %} " class=" btn btn-sm btn-primary">Go! &rarr;</a>
               <a href=" {% url 'community:join' community.id %} " class=" btn btn-sm btn-primary">Join!</a>

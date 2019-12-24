@@ -1,6 +1,26 @@
 {% extends 'base.html' %}
 {% block a %}  <a class="nav-link" href=" {% url 'community:community_create' %}  "> {% endblock %}
 
+            {% block li %}
+
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Profile</a>
+                <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
+                  
+                  <a class="dropdown-item" href={% url 'community:register' %}>Registration</a>                 
+                  <a class="dropdown-item" href={% url 'community:login' %}>Login</a>
+                  <a class="dropdown-item"  href={% url 'community:logout' %}>Logout</a>
+                </div>
+            </li>
+            {% comment %} <li class="nav-item">
+
+            </li>
+            <li class="nav-item">
+            </li>
+            <li class="nav-item">
+            </li> {% endcomment %}
+            {% endblock %}
+
 {% block body %}
   <!-- Page Content -->
   <div class="container">

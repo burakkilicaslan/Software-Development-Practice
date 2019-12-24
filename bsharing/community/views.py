@@ -93,22 +93,51 @@ def Community_Edit(request, community_header_id):
         return render (request, "index.html",  {"error_message":"You are not autherizaed to change this community", 'community':community})
 
 
-
+@csrf_exempt
 def Community_Create(request):
     if not request.user.is_authenticated:
         form = login_form
-        return render (request, 'login_form.html', {'form':form}) 
+        return render (request, 'login_form.html', {'form':form})
 
     else:
-        if request.method == "POST":
+        # if 'tag_butonu' in request.POST:
+        #     form = community_form(request.POST)
+        #     tag = [] #Create Empty List
+        #     input_for_tag = request.POST.get("input_box", "Hatali Giris")
+        #     #-----------000-------------------000------------------- 
+        #     #Wikidata Query
+        #     API_ENDPOINT = "https://www.wikidata.org/w/api.php"
+        #     query = input_for_tag
+        #     params = {
+        #     'action': 'wbsearchentities',
+        #     'format': 'json',
+        #     'language': 'en',
+        #     'limit': '15',
+        #     'search': query
+        #     }
+        #     wiki_request = requests.get(API_ENDPOINT, params=params)
+        #     wiki_return = wiki_request.json()["search"] 
+        #     #-----------000-------------------000------------------- 
+        #     #Put Items Into A List For Render
+        #     for i in range(len(wiki_return)):
+        #         try:
+        #             tag.append(wiki_return[i]["description"])
+        #         except KeyError:
+        #             continue
+        #     print(tag)
+            
+        #     return render(request, "community_form.html",{"tag":tag, "form": form})
+
+        if request.method == 'POST':
             form = community_form(request.POST)
             if form.is_valid():
                 community_header = form.save(commit=False)
                 community_header.user = request.user
                 community_header.published_date = timezone.now()
+                #community_header.wikidata = request.POST.get('gettag')
                 community_header.save()
-                return render ( request, "wikidata.html", {'community_header': community_header})
-            return render ( request, "community_form.html", {'community_header': community_header})
+                return redirect('community:index')
+            return render ( request, "community_form.html", {"form": form})
         else:
             form = community_form()
             return render ( request, "community_form.html", {"form": form})
@@ -319,7 +348,7 @@ def AddSemanticTag(request):
         'action': 'wbsearchentities',
         'format': 'json',
         'language': 'en',
-        'limit': '3',
+        'limit': '15',
         'search': query
         }
         wiki_request = requests.get(API_ENDPOINT, params=params)

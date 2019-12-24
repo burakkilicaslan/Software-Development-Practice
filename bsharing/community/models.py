@@ -14,6 +14,7 @@ class community_header(models.Model):
     name = models.CharField(max_length = 100)
     desc = models.TextField()
     semantic_tag = models.CharField(max_length = 150)
+    #wikidata = models.CharField(max_length = 150)
     published_date = models.DateTimeField(auto_now_add=True, blank=True, null = True)
 
     def get_absolute_url(self):

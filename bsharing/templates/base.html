@@ -57,11 +57,7 @@
               <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Profile</a>
                 <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
                   
-                  {% if user %} 
-                  <a class="dropdown-item" href="">Profile</a>        
-                  {% else %}
-                  <a class="dropdown-item" href={% url 'community:register' %}>Registration</a>                 
-                  {% endif %}
+                  <a class="dropdown-item" href="">Profile</a>                 
                   <a class="dropdown-item" href={% url 'community:login' %}>Login</a>
                   <a class="dropdown-item"  href={% url 'community:logout' %}>Logout</a>
                 </div>
