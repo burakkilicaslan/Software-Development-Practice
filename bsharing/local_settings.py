@@ -6,8 +6,6 @@ SECRET_KEY = '-^%osj2asg*)+b$ucqx5p=&fj)l630&o96hqmhy#l*-ps_&(3q'
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1']
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
